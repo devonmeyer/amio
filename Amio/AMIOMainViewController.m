@@ -287,6 +287,13 @@
 
 - (void)addChore {
     NSLog(@"Pressed: Add chore");
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc]
+                                   initWithTitle: @""
+                                   style: UIBarButtonItemStyleDone
+                                   target: nil action: nil];
+    
+    [self.navigationItem setBackBarButtonItem: backButton];
+    
     AMIOAddChoreViewController *choreViewController = [[AMIOAddChoreViewController alloc] init];
     [self.navigationController pushViewController:choreViewController animated:YES];
 }

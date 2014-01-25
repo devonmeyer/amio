@@ -41,6 +41,7 @@
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:mainViewController];
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Light" size:24.0f],
                                                            NSForegroundColorAttributeName: [UIColor orangeColor]}];
+    navController.navigationBar.tintColor = [UIColor orangeColor];
     [[self window] setRootViewController:navController];
     [self.window makeKeyAndVisible];
     
