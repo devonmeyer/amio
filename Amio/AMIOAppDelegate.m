@@ -22,6 +22,7 @@
     self.window.backgroundColor = [UIColor whiteColor];
     
     // Parse stuff.
+    
     [Parse setApplicationId:@"4GE07BfZ8uxc0q3hF3H9XQR7ucIhxyKb7OAkognn"
                   clientKey:@"Y1x2ooR4oWkwNDZHBvgvR0k3AHOr5o2EuSrGDUdr"];
     
@@ -31,7 +32,9 @@
     [AMIOGroup registerSubclass];
     
     // View Controller Setup
-    AMIOMainViewController *mainViewController = [[AMIOMainViewController alloc] initWithStyle:UITableViewStyleGrouped];
+
+    AMIOMainViewController *mainViewController = [[AMIOMainViewController alloc] init];
+    
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:mainViewController];
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Light" size:24.0f],
                                                            NSForegroundColorAttributeName: [UIColor orangeColor]}];
