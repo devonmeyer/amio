@@ -10,11 +10,11 @@
 
 extern const CGFloat CELL_HEIGHT;
 extern const CGFloat CELL_PADDING;
-extern const NSString * TEST_GROUP;
-extern const NSString * TEST_USER_ONE;
-extern const NSString * TEST_USER_TWO;
-extern const bool IS_USER_ONE;
-extern const bool TESTING;
+extern NSString * TEST_GROUP;
+extern NSString * TEST_USER_ONE;
+extern NSString * TEST_USER_TWO;
+extern bool IS_USER_ONE;
+extern bool TESTING;
 
 
 

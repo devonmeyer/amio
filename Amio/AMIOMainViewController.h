@@ -13,17 +13,22 @@
 @interface AMIOMainViewController : UITableViewController
 {
     
-    void (^loadContentArray)(NSArray *, NSError *);
-    void (^loadAllChoresArray)(NSArray *, NSError *);
-    void (^loadUser)(NSArray *, NSError *);
-    void (^loadGroup)(NSArray *, NSError *);
-
-
-    
 }
 
 @property AMIOGroup * activeGroup;
 @property AMIOUser * activeUser;
+
+- (void) loadContentArrayFromArray:(NSArray *)objects
+                         withError:(NSError *) error;
+
+- (void) loadAllChoresArrayFromArray:(NSArray *)objects
+                           withError:(NSError *) error;
+
+- (void) loadActiveUserFromArray:(NSArray *)objects
+                       withError:(NSError *) error;
+
+- (void) loadActiveGroupFromArray:(NSArray *)objects
+                        withError:(NSError *) error;
 
 
 @end

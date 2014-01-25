@@ -38,15 +38,31 @@ enum AMIOTaskStatus {
 @interface AMIOTask : PFObject <PFSubclassing>
 {
     
-    void (^assignUserToTask)(NSArray *, NSError *);
-
-    
 }
 
 
 + (NSString *) parseClassName;
 
 // Custom Queries
+
+/*
+ 
+ Common, supported, best.
+ 
+ */
+
++ (void) getTasksForUser:(AMIOUser *)aUser withTarget:(id)aTarget withSelector:(SEL)aSelector;
+
++ (void) getTasksForGroup:(AMIOGroup *)aGroup withTarget:(id)aTarget withSelector:(SEL)aSelector;
+
++ (void) getTasksForGroup:(AMIOGroup *)aGroup exceptUser:(AMIOUser *)aUser  withTarget:(id)aTarget withSelector:(SEL)aSelector;
+
+/*
+ 
+ Uncommon but useful on occassion. Do not use in production.
+ 
+ */
+
 
 + (NSArray *) getTasksForUser:(AMIOUser *)aUser;
 
@@ -62,9 +78,13 @@ enum AMIOTaskStatus {
 
 + (void) getTasksForGroup:(AMIOGroup *)aGroup exceptUser:(AMIOUser *)aUser withBlock:(void (^)(NSArray *, NSError *))block;
 
+
+
 // Instance Methods
 
 - (void) taskCompleted;
+
+- (void) assignUserToTaskWithArray:(NSArray *) objects withError:(NSError *) error;
 
 
 // Member Properties

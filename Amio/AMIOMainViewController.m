@@ -33,8 +33,6 @@
 {
     self = [super initWithStyle:style];
     
-    [self initBlocks];
-    
     if (self) {
         
         // First init with empty arrays
@@ -59,85 +57,92 @@
 
 // Test method for Parse.
 
-- (void) initBlocks
+
+- (void) loadContentArrayFromArray:(NSArray *)objects
+                         withError:(NSError *) error
 {
     
-    loadContentArray = ^(NSArray * objects, NSError * error) {
-    
-        if (!error) {
+    if (!error) {
         NSLog(@"loadContentArray : Loading content with %d objects", [objects count]);
-            _content = [NSMutableArray arrayWithArray:objects];
-            
-            
-            [self.tableView reloadData ];
-            
-        } else {
-            NSLog(@"%@", [error debugDescription]);
-        }
+        _content = [NSMutableArray arrayWithArray:objects];
         
-    };
-    
-    loadAllChoresArray = ^(NSArray * objects, NSError * error) {
         
-        if (!error) {
-            NSLog(@"loadAllChoresArray : Loading content with %d objects", [objects count]);
-            _allChores = [NSMutableArray arrayWithArray:objects];
-            
-            [self.tableView reloadData ];
-            
-        } else {
-            NSLog(@"%@", [error debugDescription]);
-        }
-    };
-    
-    loadUser = ^(NSArray * objects, NSError * error) {
+        [self.tableView reloadData ];
         
-        if (!error) {
-            
-            NSLog(@"loadUser : Loading content with %d objects", [objects count]);
-            
-            [self setActiveUser:objects[0]];
-            
-            [AMIOTask getTasksForUser:[self activeUser] withBlock:loadContentArray];
-            
-            [AMIOGroup getGroupByID:TEST_GROUP withBlock:loadGroup];
-            
-            [self.tableView reloadData ];
-            
-        } else {
-            
-            NSLog(@"%@", [error debugDescription]);
-            
-        }
-    };
-    
-    loadGroup = ^(NSArray * objects, NSError * error) {
-        
-        if (!error) {
-            
-            NSLog(@"loadGroup : Loading content with %d objects", [objects count]);
-            
-            [self setActiveGroup:objects[0]];
-            
-            NSLog(@"%@", activeGroup);
-            
-            //[self createSomeTasks];
-            
-            
-            [AMIOTask getTasksForGroup:[self activeGroup] exceptUser:[self activeUser] withBlock:loadAllChoresArray];
-            
-            [self.tableView reloadData];
-            
-        } else {
-            
-            NSLog(@"%@", [error debugDescription]);
-            
-        }
-    };
-
+    } else {
+        NSLog(@"%@", [error debugDescription]);
+    }
     
 }
 
+
+- (void) loadAllChoresArrayFromArray:(NSArray *)objects
+                           withError:(NSError *) error
+{
+    
+    if (!error) {
+        NSLog(@"loadAllChoresArray : Loading content with %d objects", [objects count]);
+        _allChores = [NSMutableArray arrayWithArray:objects];
+        
+        [self.tableView reloadData ];
+        
+    } else {
+        NSLog(@"%@", [error debugDescription]);
+    }
+    
+    
+    
+}
+
+- (void) loadActiveUserFromArray:(NSArray *)objects
+                       withError:(NSError *) error
+{
+    
+    if (!error) {
+        
+        NSLog(@"loadUser : Loading content with %d objects", [objects count]);
+        
+        [self setActiveUser:objects[0]];
+        
+        [AMIOTask getTasksForUser:[self activeUser] withTarget:self withSelector:@selector(loadContentArrayFromArray:withError:)];
+        
+        [AMIOGroup getGroupByID:TEST_GROUP withTarget:self withSelector:@selector(loadActiveGroupFromArray:withError:)];
+                
+        [self.tableView reloadData ];
+        
+    } else {
+        
+        NSLog(@"%@", [error debugDescription]);
+        
+    }
+    
+}
+
+- (void) loadActiveGroupFromArray:(NSArray *)objects withError:(NSError *) error
+{
+    
+    if (!error) {
+        
+        NSLog(@"loadGroup : Loading content with %d objects", [objects count]);
+        
+        [self setActiveGroup:objects[0]];
+        
+        NSLog(@"%@", activeGroup);
+        
+        //[self createSomeTasks];
+        
+        
+        [AMIOTask getTasksForGroup:[self activeGroup] exceptUser:[self activeUser] withTarget:self withSelector:@selector(loadAllChoresArrayFromArray:withError:)];
+        
+        [self.tableView reloadData];
+        
+    } else {
+        
+        NSLog(@"%@", [error debugDescription]);
+        
+    }
+    
+}
 
 - (void) createSomeTasks
 {
@@ -186,9 +191,9 @@
     if (TESTING) {
                 
         if (IS_USER_ONE) {
-            [AMIOUser getUserByID:TEST_USER_ONE withBlock:loadUser];
+            [AMIOUser getUserByID:TEST_USER_ONE withTarget:self withSelector:@selector(loadActiveUserFromArray:withError:)];
         } else {
-            [AMIOUser getUserByID:TEST_USER_TWO withBlock:loadUser];
+            [AMIOUser getUserByID:TEST_USER_TWO withTarget:self withSelector:@selector(loadActiveUserFromArray:withError:)];
         }
         
         
@@ -284,7 +289,7 @@
     UIColor *greenColor = [UIColor colorWithRed:85.0 / 255.0 green:213.0 / 255.0 blue:80.0 / 255.0 alpha:1.0];
 
     // Setting the default inactive state color to the tableView background color
-    //[cell setDefaultColor:[UIColor colorWithRed:227.0 / 255.0 green:227.0 / 255.0 blue:227.0 / 255.0 alpha:1.0]];
+    [cell setDefaultColor:[UIColor colorWithRed:227.0 / 255.0 green:227.0 / 255.0 blue:227.0 / 255.0 alpha:1.0]];
     
     [cell setDelegate:self];
     [cell.textLabel setText:[[_content objectAtIndex:indexPath.row] name]];

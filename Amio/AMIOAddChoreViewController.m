@@ -75,7 +75,7 @@
 }
 
 //Here we make the connection
--(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row   forComponent:(NSInteger)component
+-(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row  forComponent:(NSInteger)component
 {
     
     return [self.typeArray objectAtIndex:row];
