@@ -29,6 +29,8 @@
 {
     self = [super initWithStyle:style];
     if (self) {
+        
+        // Content is 'my' tasks
         _content = [[NSMutableArray alloc] initWithObjects:@"Pick up trash", @"Get some milk", @"Something", nil];
     }
     return self;
@@ -38,14 +40,12 @@
 {
     [super viewDidLoad];
     self.title = @"amio";
-<<<<<<< HEAD
     
     [self retrieveGroupAndUser];
-=======
+
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addChore)];
     [[UIBarButtonItem appearance] setTintColor:[UIColor orangeColor]];
-    [self testParse];
->>>>>>> cf24a07a4105628a0ebfcc998d3fd5b267001f2d
+
 }
 
 
