@@ -51,8 +51,6 @@
 {
     [super viewDidLoad];
     self.title = @"amio";
-
-    [self retrieveGroupAndUser];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addChore)];
     [[UIBarButtonItem appearance] setTintColor:[UIColor orangeColor]];
 }
@@ -65,23 +63,47 @@
     
     loadContentArray = ^(NSArray * objects, NSError * error) {
     
-        _content = [NSMutableArray arrayWithArray:objects];
+        if (!error) {
+        NSLog(@"loadContentArray : Loading content with %d objects", [objects count]);
+            _content = [NSMutableArray arrayWithArray:objects];
+            
+            
+            [self.tableView reloadData ];
+            
+        } else {
+            NSLog(@"%@", [error debugDescription]);
+        }
+        
     };
     
     loadAllChoresArray = ^(NSArray * objects, NSError * error) {
         
-        _allChores = [NSMutableArray arrayWithArray:objects];
+        if (!error) {
+            NSLog(@"loadAllChoresArray : Loading content with %d objects", [objects count]);
+            _allChores = [NSMutableArray arrayWithArray:objects];
+            
+            [self.tableView reloadData ];
+            
+        } else {
+            NSLog(@"%@", [error debugDescription]);
+        }
     };
     
     loadUser = ^(NSArray * objects, NSError * error) {
         
         if (!error) {
             
+            NSLog(@"loadUser : Loading content with %d objects", [objects count]);
+            
             [self setActiveUser:objects[0]];
             
             [AMIOTask getTasksForUser:[self activeUser] withBlock:loadContentArray];
             
             [self.tableView reloadData ];
+            
+        } else {
+            
+            NSLog(@"%@", [error debugDescription]);
             
         }
     };
@@ -90,11 +112,17 @@
         
         if (!error) {
             
+            NSLog(@"loadGroup : Loading content with %d objects", [objects count]);
+            
             [self setActiveGroup:objects[0]];
             
             [AMIOTask getTasksForGroup:[self activeGroup] withBlock:loadAllChoresArray];
             
             [self.tableView reloadData ];
+            
+        } else {
+            
+            NSLog(@"%@", [error debugDescription]);
             
         }
     };

@@ -13,6 +13,9 @@
 
 @dynamic name, assignee, group, dueDate, frequency, type, frequencyUnit, status;
 
+
+
+
 + (NSString *) parseClassName
 {
     
