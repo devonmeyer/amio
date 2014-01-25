@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		88B50F411893CF3600A686D1 /* AMIOMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88B50F401893CF3600A686D1 /* AMIOMainViewController.m */; };
+		88B50F441893D69900A686D1 /* AMIOConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 88B50F431893D69900A686D1 /* AMIOConstants.m */; };
 		FFD1CC051893AEE300C8F1E0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFD1CC041893AEE300C8F1E0 /* Foundation.framework */; };
 		FFD1CC071893AEE300C8F1E0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFD1CC061893AEE300C8F1E0 /* CoreGraphics.framework */; };
 		FFD1CC091893AEE300C8F1E0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFD1CC081893AEE300C8F1E0 /* UIKit.framework */; };
@@ -35,6 +36,8 @@
 /* Begin PBXFileReference section */
 		88B50F3F1893CF3600A686D1 /* AMIOMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMIOMainViewController.h; sourceTree = "<group>"; };
 		88B50F401893CF3600A686D1 /* AMIOMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMIOMainViewController.m; sourceTree = "<group>"; };
+		88B50F421893D69900A686D1 /* AMIOConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMIOConstants.h; sourceTree = "<group>"; };
+		88B50F431893D69900A686D1 /* AMIOConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMIOConstants.m; sourceTree = "<group>"; };
 		FFD1CC011893AEE300C8F1E0 /* Amio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Amio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFD1CC041893AEE300C8F1E0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		FFD1CC061893AEE300C8F1E0 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -110,6 +113,8 @@
 		FFD1CC0A1893AEE300C8F1E0 /* Amio */ = {
 			isa = PBXGroup;
 			children = (
+				88B50F421893D69900A686D1 /* AMIOConstants.h */,
+				88B50F431893D69900A686D1 /* AMIOConstants.m */,
 				FFD1CC131893AEE300C8F1E0 /* AMIOAppDelegate.h */,
 				FFD1CC141893AEE300C8F1E0 /* AMIOAppDelegate.m */,
 				88B50F3F1893CF3600A686D1 /* AMIOMainViewController.h */,
@@ -246,6 +251,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FFD1CC151893AEE300C8F1E0 /* AMIOAppDelegate.m in Sources */,
+				88B50F441893D69900A686D1 /* AMIOConstants.m in Sources */,
 				FFD1CC111893AEE300C8F1E0 /* main.m in Sources */,
 				88B50F411893CF3600A686D1 /* AMIOMainViewController.m in Sources */,
 			);
