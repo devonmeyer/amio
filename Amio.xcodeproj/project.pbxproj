@@ -19,6 +19,7 @@
 		FFD1CC201893AEE400C8F1E0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFD1CC081893AEE300C8F1E0 /* UIKit.framework */; };
 		FFD1CC281893AEE400C8F1E0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FFD1CC261893AEE400C8F1E0 /* InfoPlist.strings */; };
 		FFD1CC2A1893AEE400C8F1E0 /* AmioTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD1CC291893AEE400C8F1E0 /* AmioTests.m */; };
+		FFD1CC361893D94000C8F1E0 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFD1CC351893D93F00C8F1E0 /* Parse.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +49,7 @@
 		FFD1CC251893AEE400C8F1E0 /* AmioTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AmioTests-Info.plist"; sourceTree = "<group>"; };
 		FFD1CC271893AEE400C8F1E0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		FFD1CC291893AEE400C8F1E0 /* AmioTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AmioTests.m; sourceTree = "<group>"; };
+		FFD1CC351893D93F00C8F1E0 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FFD1CC361893D94000C8F1E0 /* Parse.framework in Frameworks */,
 				FFD1CC071893AEE300C8F1E0 /* CoreGraphics.framework in Frameworks */,
 				FFD1CC091893AEE300C8F1E0 /* UIKit.framework in Frameworks */,
 				FFD1CC051893AEE300C8F1E0 /* Foundation.framework in Frameworks */,
@@ -96,6 +99,7 @@
 		FFD1CC031893AEE300C8F1E0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FFD1CC351893D93F00C8F1E0 /* Parse.framework */,
 				FFD1CC041893AEE300C8F1E0 /* Foundation.framework */,
 				FFD1CC061893AEE300C8F1E0 /* CoreGraphics.framework */,
 				FFD1CC081893AEE300C8F1E0 /* UIKit.framework */,
@@ -360,6 +364,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/devonmeyer/Downloads,
+					/Users/devonmeyer/Documents/Projects/iOS/Amio/Amio,
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Amio/Amio-Prefix.pch";
 				INFOPLIST_FILE = "Amio/Amio-Info.plist";
@@ -373,6 +382,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/devonmeyer/Downloads,
+					/Users/devonmeyer/Documents/Projects/iOS/Amio/Amio,
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Amio/Amio-Prefix.pch";
 				INFOPLIST_FILE = "Amio/Amio-Info.plist";
