@@ -56,7 +56,7 @@
     
     NSArray * test = [AMIOTask getTasksForUser:testUser];
     
-    NSLog([NSString stringWithFormat:@"%@", test]);
+    //NSLog([NSString stringWithFormat:@"%@", test]);
     
 }
 
