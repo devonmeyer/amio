@@ -72,7 +72,7 @@
     
 }
 
-+ (void) getTasksForGroup:(AMIOUser *)aGroup withBlock:(void (^)(NSArray *objects, NSError *error)) block;
++ (void) getTasksForGroup:(AMIOGroup *)aGroup withBlock:(void (^)(NSArray *objects, NSError *error)) block;
 {
     
     PFQuery *query = [PFQuery queryWithClassName:[self parseClassName]];

@@ -35,9 +35,13 @@
     
     if (self) {
         
-        // Content is 'my' tasks
-        _content = [[NSMutableArray alloc] initWithObjects:@"Pick up trash", @"Get some milk", @"Something", nil];
-        _allChores = [[NSMutableArray alloc] initWithObjects:@"marijuana", @"methamphetamine", @"cocaine", @"pcp", nil];
+        // First init with empty arrays
+        _content = [[NSMutableArray alloc] init];
+        _allChores = [[NSMutableArray alloc] init];
+        
+        // Now ask server to retrieve dynamic data
+        [self retrieveGroupAndUser];
+        
     }
     return self;
 }
@@ -65,8 +69,35 @@
     
     loadAllChoresArray = ^(NSArray * objects, NSError * error) {
         
-        _content = [NSMutableArray arrayWithArray:objects];
+        _allChores = [NSMutableArray arrayWithArray:objects];
     };
+    
+    loadUser = ^(NSArray * objects, NSError * error) {
+        
+        if (!error) {
+            
+            [self setActiveUser:objects[0]];
+            
+            [AMIOTask getTasksForUser:[self activeUser] withBlock:loadContentArray];
+            
+            [self.tableView reloadData ];
+            
+        }
+    };
+    
+    loadGroup = ^(NSArray * objects, NSError * error) {
+        
+        if (!error) {
+            
+            [self setActiveGroup:objects[0]];
+            
+            [AMIOTask getTasksForGroup:[self activeGroup] withBlock:loadAllChoresArray];
+            
+            [self.tableView reloadData ];
+            
+        }
+    };
+
     
 }
 
@@ -78,54 +109,13 @@
     if (TESTING) {
         
         
-        [AMIOGroup getGroupByID:TEST_GROUP withBlock:^(NSArray *objects, NSError *error) {
-            
-            if (!error) {
-                
-                [self setActiveGroup:objects[0]];
-                
-            }
-            
-            
-        }];
-        
-        
+        [AMIOGroup getGroupByID:TEST_GROUP withBlock:loadGroup];
         if (IS_USER_ONE) {
-            
-            [AMIOUser getUserByID:TEST_USER_ONE withBlock:^(NSArray *objects, NSError *error) {
-                
-                if (!error) {
-                    
-                    [self setActiveUser:objects[0]];
-                    
-                    [[self activeUser] setName:@"Devon"];
-                    
-                    [[self activeUser] saveInBackground];
-                    
-                }
-            
-                
-            }];
-            
-            
+            [AMIOUser getUserByID:TEST_USER_ONE withBlock:loadUser];
         } else {
-            
-            [AMIOUser getUserByID:TEST_USER_TWO withBlock:^(NSArray *objects, NSError *error) {
-                
-                if (!error) {
-                    
-                    [self setActiveUser:objects[0]];
-                    
-                    [[self activeUser] setName:@"Jesse"];
-                    
-                    [[self activeUser] saveInBackground];
-                    
-                }
-                
-                
-            }];
-            
+            [AMIOUser getUserByID:TEST_USER_TWO withBlock:loadUser];
         }
+        
         
     } else {
         

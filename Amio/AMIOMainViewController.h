@@ -15,6 +15,10 @@
     
     void (^loadContentArray)(NSArray *, NSError *);
     void (^loadAllChoresArray)(NSArray *, NSError *);
+    void (^loadUser)(NSArray *, NSError *);
+    void (^loadGroup)(NSArray *, NSError *);
+
+
     
 }
 
