@@ -10,6 +10,7 @@
 #import "AMIOMainViewController.h"
 #import "AMIOUser.h"
 #import "AMIOGroup.h"
+#import "AMIOTask.h"
 #import <Parse/Parse.h>
 
 
@@ -30,6 +31,8 @@
     
     [AMIOUser registerSubclass];
     [AMIOGroup registerSubclass];
+    [AMIOTask registerSubclass];
+    
     
     // View Controller Setup
 

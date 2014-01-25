@@ -10,7 +10,15 @@
 #import <Parse/Parse.h>
 
 @interface AMIOGroup : PFObject <PFSubclassing>
+{
+    
+    
+}
+
 
 + (NSString *) parseClassName;
+
+@property (retain) NSString * name;
+@property (retain) NSString * joinCode;
 
 @end

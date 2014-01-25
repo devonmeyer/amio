@@ -8,6 +8,9 @@
 
 #import "AMIOConstants.h"
 #import "AMIOMainViewController.h"
+#import "AMIOTask.h"
+#import "AMIOGroup.h"
+#import "AMIOUser.h"
 #import <Parse/Parse.h>
 
 @interface AMIOMainViewController ()
@@ -38,9 +41,22 @@
 - (void) testParse
 {
     
-    PFObject *testObject = [PFObject objectWithClassName:@"TestObject"];
-    testObject[@"foo"] = @"bar";
-    [testObject saveInBackground];
+    AMIOTask * testTask = [AMIOTask object];
+    
+    AMIOUser * testUser = [AMIOUser object];
+    
+    [testUser save];
+    
+    [testTask setName:@"Some Task"];
+    [testTask setType:AMIOTaskTypeOnce];
+    [testTask setDueDate:[NSDate date]];
+    [testTask setAssignee:testUser];
+    
+    [testTask save];
+    
+    NSArray * test = [AMIOTask getTasksForUser:testUser];
+    
+    NSLog([NSString stringWithFormat:@"%@", test]);
     
 }
 

@@ -12,6 +12,8 @@
 
 @implementation AMIOGroup
 
+@dynamic name, joinCode;
+
 + (NSString *)parseClassName {
     return @"AMIOGroup";
 }
