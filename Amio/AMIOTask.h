@@ -52,6 +52,8 @@ enum AMIOTaskStatus {
 
 + (void) getTasksForUser:(AMIOUser *)aUser withBlock:(void (^)(NSArray *objects, NSError *error)) block;
 
++ (void) getTasksForGroup:(AMIOUser *)aGroup withBlock:(void (^)(NSArray *objects, NSError *error)) block;
+
 
 // Member Properties
 

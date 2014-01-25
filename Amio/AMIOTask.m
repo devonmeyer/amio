@@ -72,6 +72,16 @@
     
 }
 
++ (void) getTasksForGroup:(AMIOUser *)aGroup withBlock:(void (^)(NSArray *objects, NSError *error)) block;
+{
+    
+    PFQuery *query = [PFQuery queryWithClassName:[self parseClassName]];
+    [query whereKey:@"group" equalTo:aGroup];
+    
+    [query findObjectsInBackgroundWithBlock:block];
+    
+}
+
 
 - (id) init
 {
