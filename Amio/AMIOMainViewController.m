@@ -45,18 +45,31 @@
     
     AMIOUser * testUser = [AMIOUser object];
     
-    [testUser save];
+    [testUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        
+        [testTask setName:@"Some other Task"];
+        [testTask setType:AMIOTaskTypeOnce];
+        [testTask setDueDate:[NSDate date]];
+        [testTask setAssignee:testUser];
+        
+        [testTask saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            
+            [AMIOTask getTasksForUser:testUser withBlock:^(NSArray *objects, NSError *error) {
+                
+                NSLog([NSString stringWithFormat:@"%@", objects]);
+                
+            }];
+            
+            
+        }];
+        
+        //NSLog([NSString stringWithFormat:@"%@", test]);
+
+        
+    }];
     
-    [testTask setName:@"Some Task"];
-    [testTask setType:AMIOTaskTypeOnce];
-    [testTask setDueDate:[NSDate date]];
-    [testTask setAssignee:testUser];
     
-    [testTask save];
     
-    NSArray * test = [AMIOTask getTasksForUser:testUser];
-    
-    //NSLog([NSString stringWithFormat:@"%@", test]);
     
 }
 
