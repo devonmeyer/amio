@@ -17,6 +17,7 @@
 @interface AMIOMainViewController () <MCSwipeTableViewCellDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, strong) NSMutableArray *content;
+@property (nonatomic, strong) NSMutableArray *allChores;
 @property (nonatomic, strong) MCSwipeTableViewCell *cellToDelete;
 
 @end
@@ -36,6 +37,7 @@
         
         // Content is 'my' tasks
         _content = [[NSMutableArray alloc] initWithObjects:@"Pick up trash", @"Get some milk", @"Something", nil];
+        _allChores = [[NSMutableArray alloc] initWithObjects:@"marijuana", @"methamphetamine", @"cocaine", @"pcp", nil];
     }
     return self;
 }
@@ -155,7 +157,7 @@
     if (section == 0) {
         return [_content count];
     } else {
-        return 5;
+        return [_allChores count];
     }
 }
 
@@ -197,7 +199,7 @@
         [cell addSubview:profileView];
         
         UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectMake(CELL_PADDING + CELL_HEIGHT, 0, self.tableView.frame.size.width - 60 - CELL_PADDING*2 - CELL_HEIGHT, CELL_HEIGHT)];
-        [textLabel setText:@"Chore"];
+        [textLabel setText:[_allChores objectAtIndex:indexPath.row]];
         [textLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Thin" size:16.0f]];
         [cell addSubview:textLabel];
         
