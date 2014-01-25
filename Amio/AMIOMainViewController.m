@@ -25,9 +25,13 @@
 
 @synthesize activeGroup, activeUser;
 
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
+    
+    [self initBlocks];
+    
     if (self) {
         
         // Content is 'my' tasks
@@ -48,6 +52,22 @@
 
 
 // Test method for Parse.
+
+- (void) initBlocks
+{
+    
+    loadContentArray = ^(NSArray * objects, NSError * error) {
+    
+        _content = [NSMutableArray arrayWithArray:objects];
+    };
+    
+    loadAllChoresArray = ^(NSArray * objects, NSError * error) {
+        
+        _content = [NSMutableArray arrayWithArray:objects];
+    };
+    
+}
+
 - (void) retrieveGroupAndUser
 {
     
