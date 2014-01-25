@@ -62,6 +62,16 @@
     
 }
 
++ (void) getTasksForUser:(AMIOUser *)aUser withBlock:(void (^)(NSArray *objects, NSError *error)) block
+{
+    
+    PFQuery *query = [PFQuery queryWithClassName:[self parseClassName]];
+    [query whereKey:@"assignee" equalTo:aUser];
+    
+    [query findObjectsInBackgroundWithBlock:block];
+    
+}
+
 
 - (id) init
 {

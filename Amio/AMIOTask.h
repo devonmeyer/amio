@@ -50,6 +50,8 @@ enum AMIOTaskStatus {
 
 + (PFQuery *) getQueryTasksForGroup:(AMIOGroup *)aGroup;
 
++ (void) getTasksForUser:(AMIOUser *)aUser withBlock:(void (^)(NSArray *objects, NSError *error)) block;
+
 
 // Member Properties
 
