@@ -8,6 +8,7 @@
 
 #import "AMIOConstants.h"
 #import "AMIOMainViewController.h"
+#import <Parse/Parse.h>
 
 @interface AMIOMainViewController ()
 
@@ -28,7 +29,21 @@
 {
     [super viewDidLoad];
     self.title = @"amio";
+    
+    [self testParse];
 }
+
+
+// Test method for Parse.
+- (void) testParse
+{
+    
+    PFObject *testObject = [PFObject objectWithClassName:@"TestObject"];
+    testObject[@"foo"] = @"bar";
+    [testObject saveInBackground];
+    
+}
+
 
 - (void)didReceiveMemoryWarning
 {
