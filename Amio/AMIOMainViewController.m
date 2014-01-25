@@ -40,12 +40,10 @@
 {
     [super viewDidLoad];
     self.title = @"amio";
-    
-    [self retrieveGroupAndUser];
 
+    [self retrieveGroupAndUser];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addChore)];
     [[UIBarButtonItem appearance] setTintColor:[UIColor orangeColor]];
-
 }
 
 
