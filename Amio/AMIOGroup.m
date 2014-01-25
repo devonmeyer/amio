@@ -18,4 +18,15 @@
     return @"AMIOGroup";
 }
 
+
++(void) getGroupByID:(NSString *)anId withBlock:(void (^)(NSArray *objects, NSError *error)) block
+{
+    
+    PFQuery *query = [PFQuery queryWithClassName:[self parseClassName]];
+    [query whereKey:@"objectId" equalTo:anId];
+    
+    [query findObjectsInBackgroundWithBlock:block];
+    
+}
+
 @end

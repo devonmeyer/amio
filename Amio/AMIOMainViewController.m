@@ -23,6 +23,8 @@
 
 @implementation AMIOMainViewController
 
+@synthesize activeGroup, activeUser;
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -37,13 +39,74 @@
     [super viewDidLoad];
     self.title = @"amio";
     
-    [self testParse];
+    [self retrieveGroupAndUser];
 }
 
 
 // Test method for Parse.
-- (void) testParse
+- (void) retrieveGroupAndUser
 {
+    
+    // Get the active user.. Currently in test mode.
+    
+    if (TESTING) {
+        
+        
+        [AMIOGroup getGroupByID:TEST_GROUP withBlock:^(NSArray *objects, NSError *error) {
+            
+            if (!error) {
+                
+                [self setActiveGroup:objects[0]];
+                
+            }
+            
+            
+        }];
+        
+        
+        if (IS_USER_ONE) {
+            
+            [AMIOUser getUserByID:TEST_USER_ONE withBlock:^(NSArray *objects, NSError *error) {
+                
+                if (!error) {
+                    
+                    [self setActiveUser:objects[0]];
+                    
+                    [[self activeUser] setName:@"Devon"];
+                    
+                    [[self activeUser] saveInBackground];
+                    
+                }
+            
+                
+            }];
+            
+            
+        } else {
+            
+            [AMIOUser getUserByID:TEST_USER_TWO withBlock:^(NSArray *objects, NSError *error) {
+                
+                if (!error) {
+                    
+                    [self setActiveUser:objects[0]];
+                    
+                    [[self activeUser] setName:@"Jesse"];
+                    
+                    [[self activeUser] saveInBackground];
+                    
+                }
+                
+                
+            }];
+            
+        }
+        
+    } else {
+        
+        // ... TODO ...
+        
+    }
+    
     
     
     

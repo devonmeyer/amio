@@ -12,10 +12,22 @@
 
 @implementation AMIOUser
 
+@dynamic name;
+
 + (NSString *) parseClassName
 {
     
     return @"AMIOUser";
+    
+}
+
++ (void) getUserByID:(NSString *)anId withBlock:(void (^)(NSArray *objects, NSError *error)) block;
+{
+    
+    PFQuery *query = [PFQuery queryWithClassName:[self parseClassName]];
+    [query whereKey:@"objectId" equalTo:anId];
+    
+    [query findObjectsInBackgroundWithBlock:block];
     
 }
 

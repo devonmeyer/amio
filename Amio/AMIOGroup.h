@@ -18,6 +18,8 @@
 
 + (NSString *) parseClassName;
 
++(void) getGroupByID:(NSString *)anId withBlock:(void (^)(NSArray *objects, NSError *error)) block;
+
 @property (retain) NSString * name;
 @property (retain) NSString * joinCode;
 

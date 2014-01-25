@@ -8,7 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
+@class AMIOGroup, AMIOUser;
 
 @interface AMIOMainViewController : UITableViewController
+
+
+@property AMIOGroup * activeGroup;
+@property AMIOUser * activeUser;
+
 
 @end

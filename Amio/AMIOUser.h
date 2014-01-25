@@ -13,4 +13,8 @@
 
 +(NSString *) parseClassName;
 
++(void) getUserByID:(NSString *)anId withBlock:(void (^)(NSArray *objects, NSError *error)) block;
+
+@property NSString * name;
+
 @end
