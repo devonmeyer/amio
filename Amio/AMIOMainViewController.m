@@ -43,6 +43,7 @@
         
         // Now ask server to retrieve dynamic data
         [self retrieveGroupAndUser];
+        //;
         
     }
     return self;
@@ -55,7 +56,6 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addChore)];
     [[UIBarButtonItem appearance] setTintColor:[UIColor orangeColor]];
 }
-
 
 // Test method for Parse.
 
@@ -117,6 +117,10 @@
             
             [self setActiveGroup:objects[0]];
             
+            NSLog(@"%@", activeGroup);
+            
+            //[self createSomeTasks];
+            
             [AMIOTask getTasksForGroup:[self activeGroup] withBlock:loadAllChoresArray];
             
             [self.tableView reloadData ];
@@ -128,6 +132,46 @@
         }
     };
 
+    
+}
+
+
+- (void) createSomeTasks
+{
+    
+    NSArray * actions = [NSArray arrayWithObjects:@"Do", @"Wash", @"Clean", @"Make", nil];
+    
+    NSArray * objects = [NSArray arrayWithObjects:@"the dishes.", @"roscoe's shit.", @"dinner.", @"the bathroom", @"the living room", @"kevin's nasty laundry.", nil];
+    
+    AMIOUser * userOne = [AMIOUser getUserByID:TEST_USER_ONE][0];
+    AMIOUser * userTwo = [AMIOUser getUserByID:TEST_USER_TWO][0];
+    
+    for (int i = 0; i < 10; i ++) {
+        
+        AMIOTask * task = [AMIOTask object];
+        NSString * name = [NSString stringWithFormat:@"%@ %@", [actions objectAtIndex:(arc4random() % [actions count])], [objects objectAtIndex:(arc4random() % [objects count])]];
+        
+        [task setName:name];
+        if (i % 2) {
+            [task setAssignee:userOne];
+        } else {
+            [task setAssignee:userTwo];
+        }
+        
+        [task setGroup:[self activeGroup]];
+        
+        [task setDueDate:[NSDate dateWithTimeIntervalSinceNow:(arc4random() % 604800)]];
+        
+        [task setFrequency:1];
+        [task setFrequencyUnit:AMIOTaskFrequencyWeek];
+        [task setStatus:AMIOTaskStatusUpcoming];
+        
+        [task saveInBackground];
+        
+        
+        
+        
+    }
     
 }
 
@@ -300,21 +344,6 @@
     return CELL_HEIGHT;
 }
 
-- (void)deleteCell:(MCSwipeTableViewCell *)cell {
-    NSParameterAssert(cell);
-    
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-    
-    AMIOTask * theTask = [_content objectAtIndex:[indexPath item]];
-    
-    [theTask taskCompleted];
-    
-    [_content removeObject:theTask];
-    
-    [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-
-}
-
 - (UIView *)viewWithImageName:(NSString *)imageName {
     UIImage *image = [UIImage imageNamed:imageName];
     UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
@@ -347,10 +376,23 @@
     
     // Yes
     else {
-        [_content removeObjectAtIndex:buttonIndex];
-        [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:[self.tableView indexPathForCell:_cellToDelete].row inSection:0]]
+        
+        int myIndex = [[self.tableView indexPathForCell:_cellToDelete] row];
+        
+        AMIOTask * theTask = [_content objectAtIndex:myIndex];
+
+        [theTask taskCompleted];
+        
+        NSArray * toDelete = [NSArray arrayWithObjects:[NSIndexPath indexPathForRow:myIndex inSection:0], nil];
+        
+        NSLog(@"%@", toDelete);
+        
+        [self.tableView deleteRowsAtIndexPaths:toDelete
                               withRowAnimation:UITableViewRowAnimationFade];
   
+        [_content removeObject:theTask];
+
+        
     }
 }
 
