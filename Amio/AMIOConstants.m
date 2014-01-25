@@ -15,7 +15,7 @@ const NSString * TEST_GROUP = @"AzRKAJE6qB";
 const NSString * TEST_USER_ONE = @"oidJulWDCz";
 const NSString * TEST_USER_TWO = @"EptXgi8ytC";
 
-const bool IS_USER_ONE = false;
+const bool IS_USER_ONE = true;
 
 const bool TESTING = true;
 
