@@ -283,7 +283,7 @@
     UIColor *greenColor = [UIColor colorWithRed:85.0 / 255.0 green:213.0 / 255.0 blue:80.0 / 255.0 alpha:1.0];
 
     // Setting the default inactive state color to the tableView background color
-    [cell setDefaultColor:[UIColor colorWithRed:227.0 / 255.0 green:227.0 / 255.0 blue:227.0 / 255.0 alpha:1.0]];
+    //[cell setDefaultColor:[UIColor colorWithRed:227.0 / 255.0 green:227.0 / 255.0 blue:227.0 / 255.0 alpha:1.0]];
     
     [cell setDelegate:self];
     [cell.textLabel setText:[[_content objectAtIndex:indexPath.row] name]];

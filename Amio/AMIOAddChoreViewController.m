@@ -25,12 +25,12 @@
     }
     //Add Label for name
 
-    UITextView *textView = [[UITextView alloc] initWithFrame:CGRectMake(0, 60, self.view.frame.size.width, 200)];
+    UITextView *textView = [[UITextView alloc] initWithFrame:CGRectMake(0, 60, self.view.frame.size.width, CELL_HEIGHT)];
     textView.font = [UIFont fontWithName:@"HelveticaNeue-Thin" size:16.0f];
     textView.textColor = [UIColor blackColor];
-    textView.contentInset = UIEdgeInsetsMake(0.0,-100.0,0.0,0.0);
-    textView.backgroundColor = [UIColor greenColor];
-    //[textView setScrollEnabled:NO];
+    textView.contentInset = UIEdgeInsetsMake(-60 + 5, 0, 0, 0);
+    textView.backgroundColor = [UIColor colorWithRed:230.0 / 255.0 green:230.0 / 255.0 blue:230.0 / 255.0 alpha:1.0];
+    [textView setScrollEnabled:NO];
     [self.view addSubview:textView];
     
     /*
@@ -97,16 +97,12 @@
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
 {
     return 1;
-    
 }
 
 // returns the # of rows in each component for typePicker.
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent: (NSInteger)component
 {
     return 3;
-    
 }
-
-
 
 @end
