@@ -11,6 +11,7 @@
 #import "AMIOTask.h"
 #import "AMIOGroup.h"
 #import "AMIOUser.h"
+#import "AMIOAddChoreViewController.h"
 #import "MCSwipeTableViewCell.h"
 #import <Parse/Parse.h>
 
@@ -276,6 +277,8 @@
 
 - (void)addChore {
     NSLog(@"Pressed: Add chore");
+    AMIOAddChoreViewController *choreViewController = [[AMIOAddChoreViewController alloc] init];
+    [self.navigationController pushViewController:choreViewController animated:YES];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
