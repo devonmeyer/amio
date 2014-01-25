@@ -134,7 +134,9 @@
     
     AMIOUser * currentAssignee = [self assignee];
     int myIndex = [[[self group] members] indexOfObject:[currentAssignee objectId]];
-    int newIndex = (myIndex+1) % [[[self group] members] count];
+    int numberGroupMembers = [[[self group] members] count];
+    
+    int newIndex = ((myIndex + 1) % numberGroupMembers);
     NSString * newUserId = [[[self group] members] objectAtIndex:newIndex];
     [AMIOUser getUserByID:newUserId withBlock:assignUserToTask];
     
