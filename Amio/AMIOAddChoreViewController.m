@@ -7,6 +7,7 @@
 //
 
 #import "AMIOAddChoreViewController.h"
+#import "AMIOConstants.h"
 
 @interface AMIOAddChoreViewController ()
 
@@ -23,20 +24,21 @@
         
     }
     //Add Label for name
-    self.taskLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 60, 325, 50)];
-    self.taskLabel.text = @"  Your Task Here";
-    self.taskLabel.textColor = [UIColor orangeColor];
-    self.taskLabel.font = [self.taskLabel.font fontWithSize:25];
-    self.taskLabel.backgroundColor = [UIColor blackColor];
-    [self.view addSubview:self.taskLabel];
+
+    UITextView *textView = [[UITextView alloc] initWithFrame:CGRectMake(0, 60, self.view.frame.size.width, CELL_HEIGHT)];
+    textView.font = [UIFont fontWithName:@"HelveticaNeue-Thin" size:16.0f];
+    textView.textColor = [UIColor blackColor];
+    textView.contentInset = UIEdgeInsetsMake(-60 + 5, 0, 0, 0);
+    textView.backgroundColor = [UIColor colorWithRed:230.0 / 255.0 green:230.0 / 255.0 blue:230.0 / 255.0 alpha:1.0];
+    [textView setScrollEnabled:NO];
+    [self.view addSubview:textView];
     
-    //Add Label Type
+    /*
     self.typeLabel = [[UILabel alloc] initWithFrame:CGRectMake(80, 110, 200, 25)];
     self.typeLabel.text = @"Select a Type of Task";
     self.typeLabel.textColor = [UIColor blackColor];
     [self.view addSubview:self.typeLabel];
     
-    //Add Buttons for type
     self.Typebutton1 = [[UIButton alloc] initWithFrame:CGRectMake(10, 140, 150, 50)];
     [self.Typebutton1 setTitle:@"Periodically?" forState:UIControlStateNormal];
     self.Typebutton1.backgroundColor = [UIColor grayColor];
@@ -53,7 +55,7 @@
     self.typeAnswerLabel.text = @"???";
     self.typeAnswerLabel.textColor = [UIColor orangeColor];
     [self.view addSubview:self.typeAnswerLabel];
-    
+    */
     
     // UIPickView is not working, don't know why
     self.typePicker = [[UIPickerView alloc] initWithFrame:CGRectMake(10,100,200,100)];
@@ -71,7 +73,7 @@
     self.title = @"amio";
     
 	// Do any additional setup after loading the view.
-    self.typeArray  = [[NSArray alloc]         initWithObjects:@"Periodically",@"When we run out",@" I don't know" , nil];
+    self.typeArray  = [[NSArray alloc]         initWithObjects:@"Periodically", @"When we run out", @" I don't know" , nil];
 }
 
 //Here we make the connection
@@ -95,16 +97,12 @@
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
 {
     return 1;
-    
 }
 
 // returns the # of rows in each component for typePicker.
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent: (NSInteger)component
 {
     return 3;
-    
 }
-
-
 
 @end
