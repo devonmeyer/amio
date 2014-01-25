@@ -190,7 +190,7 @@
         [cell addSubview:profileView];
         
         UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectMake(CELL_PADDING + CELL_HEIGHT, 0, self.tableView.frame.size.width - 60 - CELL_PADDING*2 - CELL_HEIGHT, CELL_HEIGHT)];
-        [textLabel setText:[_allChores objectAtIndex:indexPath.row]];
+        [textLabel setText:[[_allChores objectAtIndex:indexPath.row] name]];
         [textLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Thin" size:16.0f]];
         [cell addSubview:textLabel];
         
@@ -213,7 +213,7 @@
     [cell setDefaultColor:[UIColor colorWithRed:227.0 / 255.0 green:227.0 / 255.0 blue:227.0 / 255.0 alpha:1.0]];
     
     [cell setDelegate:self];
-    [cell.textLabel setText:[_content objectAtIndex:indexPath.row]];
+    [cell.textLabel setText:[[_content objectAtIndex:indexPath.row] name]];
     [cell.textLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Thin" size:16.0f]];
 
     UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.tableView.frame.size.width - 60 - CELL_PADDING, 0, 60, CELL_HEIGHT)];
