@@ -67,17 +67,22 @@
 {
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, CELL_HEIGHT)];
 
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(CELL_PADDING, 4, tableView.frame.size.width, CELL_HEIGHT - 8)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(CELL_PADDING, 8, tableView.frame.size.width, CELL_HEIGHT - 16)];
     [label setFont:[UIFont fontWithName:@"HelveticaNeue-Thin" size:24.0f]];
     label.textColor = [UIColor whiteColor];
     
+    UILabel *settings = [[UILabel alloc] initWithFrame:CGRectMake(tableView.frame.size.width - CELL_HEIGHT, 0, CELL_HEIGHT, CELL_HEIGHT)];
+
     if (section == 0) {
         [label setText:@"DEVON"];
+        settings.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"iconSettingsSelf"]];
     } else {
         [label setText:@"SPTREES"];
+        settings.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"iconSettingsGroup"]];
     }
     
     [view addSubview:label];
+    [view addSubview:settings];
     [view setBackgroundColor:[UIColor colorWithRed:70/255.0 green:70/255.0 blue:70/255.0 alpha:1.0]];
     return view;
 }

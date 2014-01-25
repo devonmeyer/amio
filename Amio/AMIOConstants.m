@@ -8,7 +8,7 @@
 
 #import "AMIOConstants.h"
 
-const CGFloat CELL_HEIGHT = 32.0;
+const CGFloat CELL_HEIGHT = 40.0;
 const CGFloat CELL_PADDING = 12.0;
 
 @implementation AMIOConstants
