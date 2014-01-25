@@ -22,5 +22,6 @@
 
 @property (retain) NSString * name;
 @property (retain) NSString * joinCode;
+@property NSMutableArray * members;
 
 @end

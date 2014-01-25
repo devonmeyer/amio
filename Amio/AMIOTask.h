@@ -36,6 +36,12 @@ enum AMIOTaskStatus {
 };
 
 @interface AMIOTask : PFObject <PFSubclassing>
+{
+    
+    void (^assignUserToTask)(NSArray *, NSError *);
+
+    
+}
 
 
 + (NSString *) parseClassName;
@@ -53,6 +59,10 @@ enum AMIOTaskStatus {
 + (void) getTasksForUser:(AMIOUser *)aUser withBlock:(void (^)(NSArray *objects, NSError *error)) block;
 
 + (void) getTasksForGroup:(AMIOGroup *)aGroup withBlock:(void (^)(NSArray *objects, NSError *error)) block;
+
+// Instance Methods
+
+- (void) taskCompleted;
 
 
 // Member Properties

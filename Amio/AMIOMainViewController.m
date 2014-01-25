@@ -21,6 +21,7 @@
 @property (nonatomic, strong) NSMutableArray *allChores;
 @property (nonatomic, strong) MCSwipeTableViewCell *cellToDelete;
 
+
 @end
 
 @implementation AMIOMainViewController
@@ -303,7 +304,15 @@
     NSParameterAssert(cell);
     
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    
+    AMIOTask * theTask = [_content objectAtIndex:[indexPath item]];
+    
+    [theTask taskCompleted];
+    
+    [_content removeObject:theTask];
+    
     [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+
 }
 
 - (UIView *)viewWithImageName:(NSString *)imageName {

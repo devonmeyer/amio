@@ -31,4 +31,13 @@
     
 }
 
++ (NSArray *) getUserByID:(NSString *)anId
+{
+    PFQuery *query = [PFQuery queryWithClassName:[self parseClassName]];
+    [query whereKey:@"objectId" equalTo:anId];
+    
+    return [query findObjects];
+    
+}
+
 @end

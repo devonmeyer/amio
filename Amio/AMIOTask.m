@@ -7,6 +7,8 @@
 //
 
 #import "AMIOTask.h"
+#import "AMIOGroup.h"
+#import "AMIOUser.h"
 #import <Parse/PFObject+Subclass.h>
 
 @implementation AMIOTask
@@ -91,7 +93,51 @@
     
     self = [super init];
     
+    if (self) {
+        
+        [self setBlocks];
+        
+    }
+    
+    
     return self;
+    
+}
+
+
+- (void) setBlocks
+{
+    
+    assignUserToTask = ^(NSArray * objects, NSError * error) {
+        
+        if (!error) {
+            
+            [self setAssignee:objects[0]];
+            
+            // Set due date... for now, just add a week.
+            
+            [[self dueDate] dateByAddingTimeInterval:604800];
+            
+            [self saveInBackground];
+            
+        }
+        
+    };
+
+    
+}
+
+- (void) taskCompleted
+{
+    
+    // Re assign
+    
+    AMIOUser * currentAssignee = [self assignee];
+    int myIndex = [[[self group] members] indexOfObject:[currentAssignee objectId]];
+    int newIndex = (myIndex+1) % [[[self group] members] count];
+    NSString * newUserId = [[[self group] members] objectAtIndex:newIndex];
+    [AMIOUser getUserByID:newUserId withBlock:assignUserToTask];
+    
     
 }
 

@@ -15,6 +15,8 @@
 
 +(void) getUserByID:(NSString *)anId withBlock:(void (^)(NSArray *objects, NSError *error)) block;
 
++(NSArray *) getUserByID:(NSString *)anId;
+
 @property NSString * name;
 
 @end
