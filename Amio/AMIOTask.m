@@ -87,6 +87,17 @@
     
 }
 
++ (void) getTasksForGroup:(AMIOGroup *)aGroup exceptUser:(AMIOUser *)aUser withBlock:(void (^)(NSArray *, NSError *))block
+{
+    
+    PFQuery *query = [PFQuery queryWithClassName:[self parseClassName]];
+    [query whereKey:@"group" equalTo:aGroup];
+    [query whereKey:@"assignee" notEqualTo:aUser];
+    
+    [query findObjectsInBackgroundWithBlock:block];
+    
+}
+
 
 - (id) init
 {
@@ -134,6 +145,9 @@
     
     AMIOUser * currentAssignee = [self assignee];
     int myIndex = [[[self group] members] indexOfObject:[currentAssignee objectId]];
+    
+    [[self group] fetchIfNeeded];
+    
     int numberGroupMembers = [[[self group] members] count];
     
     int newIndex = ((myIndex + 1) % numberGroupMembers);

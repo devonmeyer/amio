@@ -60,6 +60,8 @@ enum AMIOTaskStatus {
 
 + (void) getTasksForGroup:(AMIOGroup *)aGroup withBlock:(void (^)(NSArray *objects, NSError *error)) block;
 
++ (void) getTasksForGroup:(AMIOGroup *)aGroup exceptUser:(AMIOUser *)aUser withBlock:(void (^)(NSArray *, NSError *))block;
+
 // Instance Methods
 
 - (void) taskCompleted;

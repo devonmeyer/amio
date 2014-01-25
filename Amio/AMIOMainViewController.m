@@ -100,6 +100,8 @@
             
             [AMIOTask getTasksForUser:[self activeUser] withBlock:loadContentArray];
             
+            [AMIOGroup getGroupByID:TEST_GROUP withBlock:loadGroup];
+            
             [self.tableView reloadData ];
             
         } else {
@@ -121,9 +123,10 @@
             
             //[self createSomeTasks];
             
-            [AMIOTask getTasksForGroup:[self activeGroup] withBlock:loadAllChoresArray];
             
-            [self.tableView reloadData ];
+            [AMIOTask getTasksForGroup:[self activeGroup] exceptUser:[self activeUser] withBlock:loadAllChoresArray];
+            
+            [self.tableView reloadData];
             
         } else {
             
@@ -146,7 +149,7 @@
     AMIOUser * userOne = [AMIOUser getUserByID:TEST_USER_ONE][0];
     AMIOUser * userTwo = [AMIOUser getUserByID:TEST_USER_TWO][0];
     
-    for (int i = 0; i < 10; i ++) {
+    for (int i = 0; i < 4; i ++) {
         
         AMIOTask * task = [AMIOTask object];
         NSString * name = [NSString stringWithFormat:@"%@ %@", [actions objectAtIndex:(arc4random() % [actions count])], [objects objectAtIndex:(arc4random() % [objects count])]];
@@ -181,9 +184,7 @@
     // Get the active user.. Currently in test mode.
     
     if (TESTING) {
-        
-        
-        [AMIOGroup getGroupByID:TEST_GROUP withBlock:loadGroup];
+                
         if (IS_USER_ONE) {
             [AMIOUser getUserByID:TEST_USER_ONE withBlock:loadUser];
         } else {
