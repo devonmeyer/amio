@@ -93,6 +93,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FFD1CC361893D94000C8F1E0 /* Parse.framework in Frameworks */,
 				FFD1CC481893DE3D00C8F1E0 /* SystemConfiguration.framework in Frameworks */,
 				FFD1CC461893DE3500C8F1E0 /* StoreKit.framework in Frameworks */,
 				FFD1CC441893DE3100C8F1E0 /* Security.framework in Frameworks */,
@@ -105,7 +106,6 @@
 				FFD1CC071893AEE300C8F1E0 /* CoreGraphics.framework in Frameworks */,
 				FFD1CC091893AEE300C8F1E0 /* UIKit.framework in Frameworks */,
 				FFD1CC051893AEE300C8F1E0 /* Foundation.framework in Frameworks */,
-				FFD1CC361893D94000C8F1E0 /* Parse.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -440,6 +440,7 @@
 					"$(inherited)",
 					/Users/devonmeyer/Downloads,
 					/Users/devonmeyer/Documents/Projects/iOS/Amio/Amio,
+					"/Users/Jesse/Documents/Xcode\\ Projects/amio",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Amio/Amio-Prefix.pch";
@@ -458,6 +459,7 @@
 					"$(inherited)",
 					/Users/devonmeyer/Downloads,
 					/Users/devonmeyer/Documents/Projects/iOS/Amio/Amio,
+					"/Users/Jesse/Documents/Xcode\\ Projects/amio",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Amio/Amio-Prefix.pch";

@@ -36,7 +36,8 @@
 {
     [super viewDidLoad];
     self.title = @"amio";
-    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addChore)];
+    [[UIBarButtonItem appearance] setTintColor:[UIColor orangeColor]];
     [self testParse];
 }
 
@@ -46,7 +47,6 @@
 {
     
     AMIOTask * testTask = [AMIOTask object];
-    
     AMIOUser * testUser = [AMIOUser object];
     
     [testUser save];
@@ -55,11 +55,9 @@
     [testTask setType:AMIOTaskTypeOnce];
     [testTask setDueDate:[NSDate date]];
     [testTask setAssignee:testUser];
-    
     [testTask save];
     
     NSArray * test = [AMIOTask getTasksForUser:testUser];
-    
     //NSLog([NSString stringWithFormat:@"%@", test]);
     
 }
@@ -96,13 +94,15 @@
         MCSwipeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         
         if (cell==nil) {
-            cell = [[MCSwipeTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+            cell = [[MCSwipeTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         }
         
         // iOS 7 separator
         if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
             cell.separatorInset = UIEdgeInsetsZero;
         }
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         [self configureCell:cell forRowAtIndexPath:indexPath];
         return cell;
@@ -110,13 +110,30 @@
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         
         if (cell==nil) {
-            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         }
         
         // iOS 7 separator
         if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
             cell.separatorInset = UIEdgeInsetsZero;
         }
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        UIView *profileView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CELL_HEIGHT, CELL_HEIGHT)];
+        profileView.backgroundColor = [UIColor greenColor];
+        [cell addSubview:profileView];
+        
+        UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectMake(CELL_PADDING + CELL_HEIGHT, 0, self.tableView.frame.size.width - 60 - CELL_PADDING*2 - CELL_HEIGHT, CELL_HEIGHT)];
+        [textLabel setText:@"Chore"];
+        [textLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Thin" size:16.0f]];
+        [cell addSubview:textLabel];
+        
+        UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.tableView.frame.size.width - 60 - CELL_PADDING, 0, 60, CELL_HEIGHT)];
+        [dateLabel setText:@"Jan 23"];
+        [dateLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Thin" size:16.0f]];
+        dateLabel.textAlignment = NSTextAlignmentRight;
+        [cell addSubview:dateLabel];
         
         return cell;
     }
@@ -133,6 +150,13 @@
     [cell setDelegate:self];
     [cell.textLabel setText:[_content objectAtIndex:indexPath.row]];
     [cell.textLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Thin" size:16.0f]];
+
+    UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.tableView.frame.size.width - 60 - CELL_PADDING, 0, 60, CELL_HEIGHT)];
+    [dateLabel setText:@"Jan 23"];
+    [dateLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Thin" size:16.0f]];
+    dateLabel.textAlignment = NSTextAlignmentRight;
+    [cell addSubview:dateLabel];
+    
     [cell setSwipeGestureWithView:checkView color:greenColor mode:MCSwipeTableViewCellModeExit state:MCSwipeTableViewCellState1 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
         NSLog(@"Did swipe \"Cross\" cell");
         
@@ -159,10 +183,10 @@
     UILabel *settings = [[UILabel alloc] initWithFrame:CGRectMake(tableView.frame.size.width - CELL_HEIGHT + 4, 4, CELL_HEIGHT-8, CELL_HEIGHT-8)];
 
     if (section == 0) {
-        [label setText:@"DEVON"];
+        [label setText:@"Devon"];
         settings.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"iconSettingsSelf"]];
     } else {
-        [label setText:@"SPTREES"];
+        [label setText:@"Our Apartment"];
         settings.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"iconSettingsGroup"]];
     }
     
@@ -194,6 +218,10 @@
     UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
     imageView.contentMode = UIViewContentModeCenter;
     return imageView;
+}
+
+- (void)addChore {
+    NSLog(@"Pressed: Add chore");
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
