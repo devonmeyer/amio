@@ -22,6 +22,19 @@
 		FFD1CC201893AEE400C8F1E0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFD1CC081893AEE300C8F1E0 /* UIKit.framework */; };
 		FFD1CC281893AEE400C8F1E0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FFD1CC261893AEE400C8F1E0 /* InfoPlist.strings */; };
 		FFD1CC2A1893AEE400C8F1E0 /* AmioTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD1CC291893AEE400C8F1E0 /* AmioTests.m */; };
+		FFD1CC361893D94000C8F1E0 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFD1CC351893D93F00C8F1E0 /* Parse.framework */; };
+		FFD1CC381893DE0600C8F1E0 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFD1CC371893DE0600C8F1E0 /* AudioToolbox.framework */; };
+		FFD1CC3A1893DE0B00C8F1E0 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFD1CC391893DE0B00C8F1E0 /* CFNetwork.framework */; };
+		FFD1CC3C1893DE1400C8F1E0 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFD1CC3B1893DE1400C8F1E0 /* CoreLocation.framework */; };
+		FFD1CC3E1893DE1D00C8F1E0 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FFD1CC3D1893DE1D00C8F1E0 /* libz.dylib */; };
+		FFD1CC401893DE2300C8F1E0 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFD1CC3F1893DE2300C8F1E0 /* MobileCoreServices.framework */; };
+		FFD1CC421893DE2C00C8F1E0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFD1CC411893DE2C00C8F1E0 /* QuartzCore.framework */; };
+		FFD1CC441893DE3100C8F1E0 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFD1CC431893DE3100C8F1E0 /* Security.framework */; };
+		FFD1CC461893DE3500C8F1E0 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFD1CC451893DE3500C8F1E0 /* StoreKit.framework */; };
+		FFD1CC481893DE3D00C8F1E0 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFD1CC471893DE3D00C8F1E0 /* SystemConfiguration.framework */; };
+		FFD1CC4B1893E6C900C8F1E0 /* AMIOUser.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD1CC4A1893E6C900C8F1E0 /* AMIOUser.m */; };
+		FFD1CC4E1893E81B00C8F1E0 /* AMIOGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD1CC4D1893E81B00C8F1E0 /* AMIOGroup.m */; };
+		FFD1CC511893E99D00C8F1E0 /* AMIOTask.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD1CC501893E99D00C8F1E0 /* AMIOTask.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +70,22 @@
 		FFD1CC251893AEE400C8F1E0 /* AmioTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AmioTests-Info.plist"; sourceTree = "<group>"; };
 		FFD1CC271893AEE400C8F1E0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		FFD1CC291893AEE400C8F1E0 /* AmioTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AmioTests.m; sourceTree = "<group>"; };
+		FFD1CC351893D93F00C8F1E0 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
+		FFD1CC371893DE0600C8F1E0 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		FFD1CC391893DE0B00C8F1E0 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		FFD1CC3B1893DE1400C8F1E0 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		FFD1CC3D1893DE1D00C8F1E0 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		FFD1CC3F1893DE2300C8F1E0 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		FFD1CC411893DE2C00C8F1E0 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		FFD1CC431893DE3100C8F1E0 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		FFD1CC451893DE3500C8F1E0 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		FFD1CC471893DE3D00C8F1E0 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		FFD1CC491893E6C900C8F1E0 /* AMIOUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMIOUser.h; sourceTree = "<group>"; };
+		FFD1CC4A1893E6C900C8F1E0 /* AMIOUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMIOUser.m; sourceTree = "<group>"; };
+		FFD1CC4C1893E81B00C8F1E0 /* AMIOGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMIOGroup.h; sourceTree = "<group>"; };
+		FFD1CC4D1893E81B00C8F1E0 /* AMIOGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMIOGroup.m; sourceTree = "<group>"; };
+		FFD1CC4F1893E99D00C8F1E0 /* AMIOTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMIOTask.h; sourceTree = "<group>"; };
+		FFD1CC501893E99D00C8F1E0 /* AMIOTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMIOTask.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,9 +93,19 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FFD1CC481893DE3D00C8F1E0 /* SystemConfiguration.framework in Frameworks */,
+				FFD1CC461893DE3500C8F1E0 /* StoreKit.framework in Frameworks */,
+				FFD1CC441893DE3100C8F1E0 /* Security.framework in Frameworks */,
+				FFD1CC421893DE2C00C8F1E0 /* QuartzCore.framework in Frameworks */,
+				FFD1CC401893DE2300C8F1E0 /* MobileCoreServices.framework in Frameworks */,
+				FFD1CC3E1893DE1D00C8F1E0 /* libz.dylib in Frameworks */,
+				FFD1CC3C1893DE1400C8F1E0 /* CoreLocation.framework in Frameworks */,
+				FFD1CC3A1893DE0B00C8F1E0 /* CFNetwork.framework in Frameworks */,
+				FFD1CC381893DE0600C8F1E0 /* AudioToolbox.framework in Frameworks */,
 				FFD1CC071893AEE300C8F1E0 /* CoreGraphics.framework in Frameworks */,
 				FFD1CC091893AEE300C8F1E0 /* UIKit.framework in Frameworks */,
 				FFD1CC051893AEE300C8F1E0 /* Foundation.framework in Frameworks */,
+				FFD1CC361893D94000C8F1E0 /* Parse.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,6 +144,16 @@
 		FFD1CC031893AEE300C8F1E0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FFD1CC471893DE3D00C8F1E0 /* SystemConfiguration.framework */,
+				FFD1CC451893DE3500C8F1E0 /* StoreKit.framework */,
+				FFD1CC431893DE3100C8F1E0 /* Security.framework */,
+				FFD1CC411893DE2C00C8F1E0 /* QuartzCore.framework */,
+				FFD1CC3F1893DE2300C8F1E0 /* MobileCoreServices.framework */,
+				FFD1CC3D1893DE1D00C8F1E0 /* libz.dylib */,
+				FFD1CC3B1893DE1400C8F1E0 /* CoreLocation.framework */,
+				FFD1CC391893DE0B00C8F1E0 /* CFNetwork.framework */,
+				FFD1CC371893DE0600C8F1E0 /* AudioToolbox.framework */,
+				FFD1CC351893D93F00C8F1E0 /* Parse.framework */,
 				FFD1CC041893AEE300C8F1E0 /* Foundation.framework */,
 				FFD1CC061893AEE300C8F1E0 /* CoreGraphics.framework */,
 				FFD1CC081893AEE300C8F1E0 /* UIKit.framework */,
@@ -120,6 +169,12 @@
 				88B50F431893D69900A686D1 /* AMIOConstants.m */,
 				FFD1CC131893AEE300C8F1E0 /* AMIOAppDelegate.h */,
 				FFD1CC141893AEE300C8F1E0 /* AMIOAppDelegate.m */,
+				FFD1CC4F1893E99D00C8F1E0 /* AMIOTask.h */,
+				FFD1CC501893E99D00C8F1E0 /* AMIOTask.m */,
+				FFD1CC491893E6C900C8F1E0 /* AMIOUser.h */,
+				FFD1CC4C1893E81B00C8F1E0 /* AMIOGroup.h */,
+				FFD1CC4D1893E81B00C8F1E0 /* AMIOGroup.m */,
+				FFD1CC4A1893E6C900C8F1E0 /* AMIOUser.m */,
 				88B50F3F1893CF3600A686D1 /* AMIOMainViewController.h */,
 				88B50F401893CF3600A686D1 /* AMIOMainViewController.m */,
 				88B50F461893EA8000A686D1 /* MCSwipeTableViewCell.h */,
@@ -258,8 +313,11 @@
 				FFD1CC151893AEE300C8F1E0 /* AMIOAppDelegate.m in Sources */,
 				88B50F481893EA8000A686D1 /* MCSwipeTableViewCell.m in Sources */,
 				88B50F441893D69900A686D1 /* AMIOConstants.m in Sources */,
+				FFD1CC511893E99D00C8F1E0 /* AMIOTask.m in Sources */,
+				FFD1CC4B1893E6C900C8F1E0 /* AMIOUser.m in Sources */,
 				FFD1CC111893AEE300C8F1E0 /* main.m in Sources */,
 				88B50F411893CF3600A686D1 /* AMIOMainViewController.m in Sources */,
+				FFD1CC4E1893E81B00C8F1E0 /* AMIOGroup.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -378,6 +436,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/devonmeyer/Downloads,
+					/Users/devonmeyer/Documents/Projects/iOS/Amio/Amio,
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Amio/Amio-Prefix.pch";
 				INFOPLIST_FILE = "Amio/Amio-Info.plist";
@@ -391,6 +454,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/devonmeyer/Downloads,
+					/Users/devonmeyer/Documents/Projects/iOS/Amio/Amio,
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Amio/Amio-Prefix.pch";
 				INFOPLIST_FILE = "Amio/Amio-Info.plist";

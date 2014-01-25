@@ -8,6 +8,11 @@
 
 #import "AMIOAppDelegate.h"
 #import "AMIOMainViewController.h"
+#import "AMIOUser.h"
+#import "AMIOGroup.h"
+#import "AMIOTask.h"
+#import <Parse/Parse.h>
+
 
 @implementation AMIOAppDelegate
 
@@ -17,7 +22,22 @@
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     
+    // Parse stuff.
+    
+    [Parse setApplicationId:@"4GE07BfZ8uxc0q3hF3H9XQR7ucIhxyKb7OAkognn"
+                  clientKey:@"Y1x2ooR4oWkwNDZHBvgvR0k3AHOr5o2EuSrGDUdr"];
+    
+    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+    
+    [AMIOUser registerSubclass];
+    [AMIOGroup registerSubclass];
+    [AMIOTask registerSubclass];
+    
+    
+    // View Controller Setup
+
     AMIOMainViewController *mainViewController = [[AMIOMainViewController alloc] init];
+    
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:mainViewController];
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Light" size:24.0f],
                                                            NSForegroundColorAttributeName: [UIColor orangeColor]}];

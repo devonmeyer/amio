@@ -8,7 +8,11 @@
 
 #import "AMIOConstants.h"
 #import "AMIOMainViewController.h"
+#import "AMIOTask.h"
+#import "AMIOGroup.h"
+#import "AMIOUser.h"
 #import "MCSwipeTableViewCell.h"
+#import <Parse/Parse.h>
 
 @interface AMIOMainViewController () <MCSwipeTableViewCellDelegate, UIAlertViewDelegate>
 
@@ -32,7 +36,34 @@
 {
     [super viewDidLoad];
     self.title = @"amio";
+    
+    [self testParse];
 }
+
+
+// Test method for Parse.
+- (void) testParse
+{
+    
+    AMIOTask * testTask = [AMIOTask object];
+    
+    AMIOUser * testUser = [AMIOUser object];
+    
+    [testUser save];
+    
+    [testTask setName:@"Some Task"];
+    [testTask setType:AMIOTaskTypeOnce];
+    [testTask setDueDate:[NSDate date]];
+    [testTask setAssignee:testUser];
+    
+    [testTask save];
+    
+    NSArray * test = [AMIOTask getTasksForUser:testUser];
+    
+    //NSLog([NSString stringWithFormat:@"%@", test]);
+    
+}
+
 
 - (void)didReceiveMemoryWarning
 {
