@@ -17,7 +17,7 @@
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     
-    AMIOMainViewController *mainViewController = [[AMIOMainViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    AMIOMainViewController *mainViewController = [[AMIOMainViewController alloc] init];
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:mainViewController];
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Light" size:24.0f],
                                                            NSForegroundColorAttributeName: [UIColor orangeColor]}];

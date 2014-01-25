@@ -41,7 +41,7 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return 4;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -67,25 +67,18 @@
 {
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, CELL_HEIGHT)];
 
-    /*
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(CELL_PADDING, CELL_PADDING, tableView.frame.size.width, 28)];
-    [label setFont:[UIFont boldSystemFontOfSize:12]];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(CELL_PADDING, 4, tableView.frame.size.width, CELL_HEIGHT - 8)];
+    [label setFont:[UIFont fontWithName:@"HelveticaNeue-Thin" size:24.0f]];
+    label.textColor = [UIColor whiteColor];
     
     if (section == 0) {
-        [label setText:@"Devon"];
+        [label setText:@"DEVON"];
     } else {
-        [label setText:@"SPTrees"];
+        [label setText:@"SPTREES"];
     }
     
     [view addSubview:label];
-     */
-    
-    [view setBackgroundColor:[UIColor colorWithRed:166/255.0 green:177/255.0 blue:186/255.0 alpha:1.0]];
-    
-    CGRect headerFrame = view.frame;
-    headerFrame.size.height = CELL_HEIGHT;
-    view.frame = headerFrame;
-    self.tableView.tableHeaderView = self.tableView.tableHeaderView;
+    [view setBackgroundColor:[UIColor colorWithRed:70/255.0 green:70/255.0 blue:70/255.0 alpha:1.0]];
     return view;
 }
 
@@ -94,45 +87,9 @@
     return CELL_HEIGHT;
 }
 
-/*
-- (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UIView *headerView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 40)] autorelease];
-    [headerView setBackgroundColor:[UIColor colorWithRed: 39/255.0 green: 41/255.0 blue: 44/255.0 alpha: 1.0]];
-    if (section == 0) {
-        UILabel* labelAll = [[[UILabel alloc] initWithFrame: CGRectMake(12, 0, headerView.frame.size.width, headerView.frame.size.height)] autorelease];
-        labelAll.backgroundColor = [UIColor colorWithRed: 39/255.0 green: 41/255.0 blue: 44/255.0 alpha: 1.0];;
-        labelAll.font = [UIFont font1WithSize: 18];
-        labelAll.text = NSLocalizedString(@"FILTER", nil);
-        labelAll.textColor = [UIColor whiteColor];
-        //labelAll.textAlignment = NSTextAlignmentCenter;
-        [headerView addSubview:labelAll];
-    }
-    else if (section == 1) {
-        UILabel* labelAll = [[[UILabel alloc] initWithFrame: CGRectMake(12, 0, headerView.frame.size.width, headerView.frame.size.height)] autorelease];
-        labelAll.backgroundColor = [UIColor colorWithRed: 39/255.0 green: 41/255.0 blue: 44/255.0 alpha: 1.0];;
-        labelAll.font = [UIFont font1WithSize: 18];
-        labelAll.text = NSLocalizedString(@"FRATERNITIES", nil);
-        labelAll.textColor = [UIColor whiteColor];
-        //labelAll.textAlignment = NSTextAlignmentCenter;
-        [headerView addSubview:labelAll];
-    }
-    else if (section == 2) {
-        UILabel* labelAll = [[[UILabel alloc] initWithFrame: CGRectMake(12, 0, headerView.frame.size.width, headerView.frame.size.height)] autorelease];
-        labelAll.backgroundColor = [UIColor colorWithRed: 39/255.0 green: 41/255.0 blue: 44/255.0 alpha: 1.0];;
-        labelAll.font = [UIFont font1WithSize: 18];
-        labelAll.text = NSLocalizedString(@"SORORITIES", nil);
-        labelAll.textColor = [UIColor whiteColor];
-        //labelAll.textAlignment = NSTextAlignmentCenter;
-        [headerView addSubview:labelAll];
-    }
-    
-    CGRect headerFrame = headerView.frame;
-    headerFrame.size.height = 40;
-    headerView.frame = headerFrame;
-    self.tableView.tableHeaderView = self.tableView.tableHeaderView;
-    return headerView;
+    return CELL_HEIGHT;
 }
- */
 
 @end
