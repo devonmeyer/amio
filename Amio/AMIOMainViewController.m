@@ -11,9 +11,13 @@
 #import "AMIOTask.h"
 #import "AMIOGroup.h"
 #import "AMIOUser.h"
+#import "MCSwipeTableViewCell.h"
 #import <Parse/Parse.h>
 
-@interface AMIOMainViewController ()
+@interface AMIOMainViewController () <MCSwipeTableViewCellDelegate, UIAlertViewDelegate>
+
+@property (nonatomic, strong) NSMutableArray *content;
+@property (nonatomic, strong) MCSwipeTableViewCell *cellToDelete;
 
 @end
 
@@ -23,7 +27,7 @@
 {
     self = [super initWithStyle:style];
     if (self) {
-        // Custom initialization
+        _content = [[NSMutableArray alloc] initWithObjects:@"Pick up trash", @"Get some milk", @"Something", nil];
     }
     return self;
 }
@@ -91,21 +95,71 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return 5;
+    if (section == 0) {
+        return [_content count];
+    } else {
+        return 5;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    
-    if (cell==nil) {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-        cell.textLabel.text = @"test";
+    if (indexPath.section == 0) {
+        MCSwipeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        
+        if (cell==nil) {
+            cell = [[MCSwipeTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        }
+        
+        // iOS 7 separator
+        if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
+            cell.separatorInset = UIEdgeInsetsZero;
+        }
+        
+        [self configureCell:cell forRowAtIndexPath:indexPath];
+        return cell;
+    } else {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        
+        if (cell==nil) {
+            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        }
+        
+        // iOS 7 separator
+        if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
+            cell.separatorInset = UIEdgeInsetsZero;
+        }
+        
+        return cell;
     }
-
-    return cell;
 }
+
+- (void)configureCell:(MCSwipeTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    UIView *checkView = [self viewWithImageName:@"check"];
+    UIColor *greenColor = [UIColor colorWithRed:85.0 / 255.0 green:213.0 / 255.0 blue:80.0 / 255.0 alpha:1.0];
+
+    // Setting the default inactive state color to the tableView background color
+    [cell setDefaultColor:[UIColor colorWithRed:227.0 / 255.0 green:227.0 / 255.0 blue:227.0 / 255.0 alpha:1.0]];
+    
+    [cell setDelegate:self];
+    [cell.textLabel setText:[_content objectAtIndex:indexPath.row]];
+    [cell.textLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Thin" size:16.0f]];
+    [cell setSwipeGestureWithView:checkView color:greenColor mode:MCSwipeTableViewCellModeExit state:MCSwipeTableViewCellState1 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
+        NSLog(@"Did swipe \"Cross\" cell");
+        
+        _cellToDelete = cell;
+        
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Task Complete"
+                                                            message:@"Are you sure you completed this task?"
+                                                           delegate:self
+                                                  cancelButtonTitle:@"No"
+                                                  otherButtonTitles:@"Yes", nil];
+        [alertView show];
+    }];
+}
+
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
@@ -115,7 +169,7 @@
     [label setFont:[UIFont fontWithName:@"HelveticaNeue-Thin" size:24.0f]];
     label.textColor = [UIColor whiteColor];
     
-    UILabel *settings = [[UILabel alloc] initWithFrame:CGRectMake(tableView.frame.size.width - CELL_HEIGHT, 0, CELL_HEIGHT, CELL_HEIGHT)];
+    UILabel *settings = [[UILabel alloc] initWithFrame:CGRectMake(tableView.frame.size.width - CELL_HEIGHT + 4, 4, CELL_HEIGHT-8, CELL_HEIGHT-8)];
 
     if (section == 0) {
         [label setText:@"DEVON"];
@@ -139,6 +193,39 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return CELL_HEIGHT;
+}
+
+- (void)deleteCell:(MCSwipeTableViewCell *)cell {
+    NSParameterAssert(cell);
+    
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+}
+
+- (UIView *)viewWithImageName:(NSString *)imageName {
+    UIImage *image = [UIImage imageNamed:imageName];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+    imageView.contentMode = UIViewContentModeCenter;
+    return imageView;
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    // No
+    if (buttonIndex == 0) {
+        [_cellToDelete swipeToOriginWithCompletion:^{
+            NSLog(@"Swiped back");
+        }];
+        _cellToDelete = nil;
+    }
+    
+    // Yes
+    else {
+        [_content removeObjectAtIndex:buttonIndex];
+        [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:[self.tableView indexPathForCell:_cellToDelete].row inSection:0]]
+                              withRowAnimation:UITableViewRowAnimationFade];
+  
+    }
 }
 
 @end
