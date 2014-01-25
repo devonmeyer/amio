@@ -67,6 +67,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor whiteColor];
+    self.title = @"amio";
+    
 	// Do any additional setup after loading the view.
     self.typeArray  = [[NSArray alloc]         initWithObjects:@"Periodically",@"When we run out",@" I don't know" , nil];
 }
