@@ -7,6 +7,7 @@
 //
 
 #import "AMIOAppDelegate.h"
+#import "AMIOMainViewController.h"
 
 @implementation AMIOAppDelegate
 
@@ -15,7 +16,12 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
+    
+    AMIOMainViewController *mainViewController = [[AMIOMainViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:mainViewController];
+    [[self window] setRootViewController:navController];
     [self.window makeKeyAndVisible];
+    
     return YES;
 }
 
