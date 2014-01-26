@@ -38,9 +38,11 @@
     
     // View Controller Setup
 
-    LoginViewController * facebookLogin = [[LoginViewController alloc] init];
+    //LoginViewController * facebookLogin = [[LoginViewController alloc] init];
     
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:facebookLogin];
+    AMIOMainViewController * mainViewController = [[AMIOMainViewController alloc] init];
+    
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:mainViewController];
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Light" size:24.0f],
                                                            NSForegroundColorAttributeName: [UIColor orangeColor]}];
     navController.navigationBar.tintColor = [UIColor orangeColor];

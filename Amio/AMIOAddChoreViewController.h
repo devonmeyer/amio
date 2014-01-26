@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class AMIOMainViewController;
+
 @interface AMIOAddChoreViewController : UIViewController <UIPickerViewDataSource,UIPickerViewDelegate>
 
 @property (strong,nonatomic) IBOutlet UIPickerView *typePicker;
@@ -20,6 +22,13 @@
 @property (strong, nonatomic) IBOutlet UIButton *Typebutton2;
 
 @property (strong, nonatomic) IBOutlet UILabel *typeAnswerLabel;
+
+@property (weak) AMIOMainViewController * mainView;
+
+@property (strong) UITextField *nameField;
+
+@property NSInteger activeFrequencyPickerIndex;
+@property NSInteger activeUnitPickerIndex;
 
 @end
 
