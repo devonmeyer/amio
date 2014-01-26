@@ -9,7 +9,13 @@
 #import "AMIOAddChoreViewController.h"
 #import "AMIOConstants.h"
 
-@interface AMIOAddChoreViewController ()
+@interface AMIOAddChoreViewController () <UITextFieldDelegate, UIPickerViewDelegate>
+
+@property (nonatomic, strong) UISegmentedControl* segmentedControl;
+@property (nonatomic, strong) UILabel* onceLabel;
+@property (nonatomic, strong) UILabel* alertLabel;
+@property (nonatomic, strong) UIImageView* alertView;
+@property (nonatomic, strong) UIPickerView* myPickerView;
 
 @end
 
@@ -23,46 +29,94 @@
         // Custom initialization
         
     }
-    //Add Label for name
 
-    UITextView *textView = [[UITextView alloc] initWithFrame:CGRectMake(0, 60, self.view.frame.size.width, CELL_HEIGHT)];
-    textView.font = [UIFont fontWithName:@"HelveticaNeue-Thin" size:16.0f];
-    textView.textColor = [UIColor blackColor];
-    textView.contentInset = UIEdgeInsetsMake(-60 + 5, 0, 0, 0);
-    textView.backgroundColor = [UIColor colorWithRed:230.0 / 255.0 green:230.0 / 255.0 blue:230.0 / 255.0 alpha:1.0];
-    [textView setScrollEnabled:NO];
-    [self.view addSubview:textView];
+    UIView *textContainer = [[UIView alloc] initWithFrame:CGRectMake(0, 60, self.view.frame.size.width, CELL_HEIGHT)];
+    textContainer.backgroundColor = [UIColor colorWithRed:230.0 / 255.0 green:230.0 / 255.0 blue:230.0 / 255.0 alpha:1.0];
+    [self.view addSubview:textContainer];
     
-    /*
-    self.typeLabel = [[UILabel alloc] initWithFrame:CGRectMake(80, 110, 200, 25)];
-    self.typeLabel.text = @"Select a Type of Task";
-    self.typeLabel.textColor = [UIColor blackColor];
-    [self.view addSubview:self.typeLabel];
+    UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(CELL_PADDING, 62, self.view.frame.size.width, CELL_HEIGHT)];
+    textField.delegate = self;
+    textField.placeholder = @"Task name";
+    textField.font = [UIFont fontWithName:@"HelveticaNeue-Thin" size:16.0f];
+    textField.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:textField];
     
-    self.Typebutton1 = [[UIButton alloc] initWithFrame:CGRectMake(10, 140, 150, 50)];
-    [self.Typebutton1 setTitle:@"Periodically?" forState:UIControlStateNormal];
-    self.Typebutton1.backgroundColor = [UIColor grayColor];
-    [self.Typebutton1 setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
-    [self.view addSubview:self.Typebutton1];
+    NSArray *itemArray = [NSArray arrayWithObjects: @"once", @"repeating", @"alert", nil];
+    _segmentedControl = [[UISegmentedControl alloc] initWithItems:itemArray];
+    _segmentedControl.frame = CGRectMake(CELL_PADDING, 60 + CELL_HEIGHT + CELL_PADDING, self.view.frame.size.width - CELL_PADDING*2, CELL_HEIGHT/2);
+    _segmentedControl.selectedSegmentIndex = 1;
+    _segmentedControl.tintColor = [UIColor orangeColor];
+    [_segmentedControl addTarget:self
+                         action:@selector(updateSegmentView)
+               forControlEvents:UIControlEventValueChanged];
+    [self.view addSubview:_segmentedControl];
     
-    self.Typebutton2 = [[UIButton alloc] initWithFrame:CGRectMake(170, 140, 140, 50)];
-    [self.Typebutton2 setTitle:@"When out?" forState:UIControlStateNormal];
-    self.Typebutton2.backgroundColor = [UIColor grayColor];
-    [self.Typebutton2 setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
-    [self.view addSubview:self.Typebutton2];
+    _onceLabel = [[UILabel alloc] init];
+    _onceLabel.frame = CGRectMake(CELL_PADDING, 60 + CELL_HEIGHT + CELL_PADDING*2 + CELL_HEIGHT/2, self.view.frame.size.width - CELL_PADDING*2, CELL_HEIGHT/2);
+    _onceLabel.backgroundColor = [UIColor clearColor];
+    _onceLabel.text = @"task will be deleted upon completion";
+    _onceLabel.font = [UIFont fontWithName:@"HelveticaNeue-Thin" size:16.0f];
+    _onceLabel.textAlignment = NSTextAlignmentCenter;
+    [_onceLabel setHidden:YES];
+    [self.view addSubview:_onceLabel];
     
-    self.typeAnswerLabel = [[UILabel alloc] initWithFrame:CGRectMake(165, 200, 200, 25)];
-    self.typeAnswerLabel.text = @"???";
-    self.typeAnswerLabel.textColor = [UIColor orangeColor];
-    [self.view addSubview:self.typeAnswerLabel];
-    */
+    _alertLabel = [[UILabel alloc] init];
+    _alertLabel.frame = CGRectMake(CELL_PADDING, 60 + CELL_HEIGHT + CELL_PADDING*2 + CELL_HEIGHT/2, self.view.frame.size.width - CELL_PADDING*2, CELL_HEIGHT/2);
+    _alertLabel.backgroundColor = [UIColor clearColor];
+    _alertLabel.text = @"tap         to assign task when needed";
+    _alertLabel.font = [UIFont fontWithName:@"HelveticaNeue-Thin" size:16.0f];
+    _alertLabel.textAlignment = NSTextAlignmentCenter;
+    [_alertLabel setHidden:YES];
+    [self.view addSubview:_alertLabel];
     
-    // UIPickView is not working, don't know why
-    self.typePicker = [[UIPickerView alloc] initWithFrame:CGRectMake(10,100,200,100)];
-    [self.view addSubview:self.typePicker];
+    _alertView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"alert"]];
+    _alertView.frame = CGRectMake(52, 145, 48, 48);
+    [_alertView setHidden:YES];
+    [self.view addSubview:_alertView];
+
+    _myPickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(CELL_PADDING, 60 + CELL_HEIGHT + CELL_PADDING*2 + CELL_HEIGHT/2, self.view.frame.size.width - CELL_PADDING*2, CELL_HEIGHT)];
+    _myPickerView.delegate = self;
+    _myPickerView.showsSelectionIndicator = YES;
+    [self.view addSubview:_myPickerView];
     
+    UILabel *doneLabel = [[UILabel alloc] init];
+    doneLabel.frame = CGRectMake(0, self.view.frame.size.height - CELL_HEIGHT, self.view.frame.size.width, CELL_HEIGHT);
+    doneLabel.backgroundColor = [UIColor orangeColor];
+    doneLabel.text = @"Add Task";
+    doneLabel.textAlignment = NSTextAlignmentCenter;
+    doneLabel.font = [UIFont fontWithName:@"HelveticaNeue-Thin" size:28.0f];
+    doneLabel.textColor = [UIColor whiteColor];
+    [self.view addSubview:doneLabel];
+    
+    doneLabel.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapLabelWithGesture:)];
+    [doneLabel addGestureRecognizer:tapGesture];
     
     return self;
+}
+
+- (void)didTapLabelWithGesture:(UITapGestureRecognizer *)tapGesture {
+    NSLog(@"Tapped Done");
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)updateSegmentView {
+    if (_segmentedControl.selectedSegmentIndex == 0) {
+        [_onceLabel setHidden:NO];
+        [_alertLabel setHidden:YES];
+        [_alertView setHidden:YES];
+        [_myPickerView setHidden:YES];
+    } else if (_segmentedControl.selectedSegmentIndex == 1) {
+        [_onceLabel setHidden:YES];
+        [_alertLabel setHidden:YES];
+        [_alertView setHidden:YES];
+        [_myPickerView setHidden:NO];
+    } else {
+        [_onceLabel setHidden:YES];
+        [_alertLabel setHidden:NO];
+        [_alertView setHidden:NO];
+        [_myPickerView setHidden:YES];
+    }
 }
 
 //Here we initiallize the array for UIPicker,
@@ -71,19 +125,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"amio";
-    
-	// Do any additional setup after loading the view.
-    self.typeArray  = [[NSArray alloc]         initWithObjects:@"Periodically", @"When we run out", @" I don't know" , nil];
 }
-
-//Here we make the connection
--(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row  forComponent:(NSInteger)component
-{
-    
-    return [self.typeArray objectAtIndex:row];
-    
-}
-
 
 - (void)didReceiveMemoryWarning
 {
@@ -91,18 +133,59 @@
     // Dispose of any resources that can be recreated.
 }
 
-
-
-// returns the number of 'columns' to display for typePicker.
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
-{
-    return 1;
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return NO;
 }
 
-// returns the # of rows in each component for typePicker.
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent: (NSInteger)component
-{
-    return 3;
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow: (NSInteger)row inComponent:(NSInteger)component {
+    [pickerView endEditing:YES];
+}
+
+// tell the picker how many rows are available for a given component
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    NSUInteger numRows;
+    if (component == 0) {
+        numRows = 12;
+    } else {
+        numRows = 4;
+    }
+    return numRows;
+}
+
+// tell the picker how many components it will have
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 2;
+}
+
+// tell the picker the title for a given component
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    NSString *title;
+    NSDictionary *titlesRight = @{ @0: @"day(s)",
+                                   @1: @"week(s)",
+                                   @2: @"month(s)",
+                                   @3: @"year(s)"
+                                   };
+    
+    
+    if (component == 0) {
+        title = [@"" stringByAppendingFormat:@"%d", row+1];
+    } else {
+        title = [titlesRight objectForKey:[NSNumber numberWithInt:row]];
+    }
+    
+    return title;
+}
+
+// tell the picker the width of each row for a given component
+- (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
+    int sectionWidth;
+    if (component == 0) {
+        sectionWidth = self.view.frame.size.width/3;
+    } else {
+        sectionWidth = self.view.frame.size.width/3*2;
+    }
+    return sectionWidth;
 }
 
 @end
