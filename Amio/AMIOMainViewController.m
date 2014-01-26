@@ -300,7 +300,7 @@
         }
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
+        cell.backgroundColor = [UIColor clearColor];
         [self configureCell:cell forRowAtIndexPath:indexPath];
         return cell;
     } else {
@@ -314,7 +314,7 @@
         if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
             cell.separatorInset = UIEdgeInsetsZero;
         }
-        
+        cell.backgroundColor = [UIColor clearColor];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         int r = arc4random() % 6;
