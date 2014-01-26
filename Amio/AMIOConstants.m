@@ -15,7 +15,7 @@ NSString * TEST_GROUP = @"AzRKAJE6qB";
 NSString * TEST_USER_ONE = @"oidJulWDCz";
 NSString * TEST_USER_TWO = @"EptXgi8ytC";
 
-bool IS_USER_ONE = true;
+bool IS_USER_ONE = false;
 
 bool TESTING = true;
 

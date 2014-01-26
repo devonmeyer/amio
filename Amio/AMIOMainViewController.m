@@ -107,6 +107,7 @@
         _content = [NSMutableArray arrayWithArray:[_content sortedArrayUsingDescriptors:sortDescriptors]];
         
         [self.tableView reloadData ];
+        [self.tableView setNeedsDisplay];
         
     } else {
         NSLog(@"%@", [error debugDescription]);
@@ -131,6 +132,8 @@
         _allChores = [NSMutableArray arrayWithArray:[_allChores sortedArrayUsingDescriptors:sortDescriptors]];
         
         [self.tableView reloadData ];
+        
+        [self.tableView setNeedsDisplay];
         
     } else {
         NSLog(@"%@", [error debugDescription]);
