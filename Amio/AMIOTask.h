@@ -7,7 +7,7 @@
 //
 
 #import <Parse/Parse.h>
-@class AMIOUser, AMIOGroup;
+@class AMIOUser, AMIOGroup, AMIOMainViewController;
 
 enum AMIOTaskType {
     
@@ -82,7 +82,7 @@ enum AMIOTaskStatus {
 
 // Instance Methods
 
-- (void) taskCompleted;
+- (void) taskDismissedByView:(id)view;
 
 - (void) assignUserToTaskWithArray:(NSArray *) objects withError:(NSError *) error;
 

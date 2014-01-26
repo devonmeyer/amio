@@ -30,5 +30,7 @@
 - (void) loadActiveGroupFromArray:(NSArray *)objects
                         withError:(NSError *) error;
 
+- (void) updateAllChoreArray;
+
 
 @end

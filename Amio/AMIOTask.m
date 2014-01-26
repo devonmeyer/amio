@@ -155,13 +155,17 @@
         
         [[self dueDate] dateByAddingTimeInterval:604800];
         
-        [self saveInBackground];
+        [self saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        
+            
+            
+        }];
         
     }
     
 }
 
-- (void) taskCompleted
+- (void) taskDismissedByView:(id)view
 {
     
     // Re assign
@@ -175,7 +179,29 @@
     int newIndex = ((myIndex + 1) % numberGroupMembers);
     NSString * newUserId = [[[self group] members] objectAtIndex:newIndex];
     
-    [AMIOUser getUserByID:newUserId withTarget:self withSelector:@selector(assignUserToTaskWithArray:withError:)];    
+    
+    
+    [AMIOUser getUserByID:newUserId withBlock:^(NSArray *objects, NSError *error) {
+        
+        if (!error) {
+            
+            [self setAssignee:objects[0]];
+            
+            // Set due date... for now, just add a week.
+            
+            [[self dueDate] dateByAddingTimeInterval:604800];
+            
+            [self saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                
+                [view performSelector:@selector(updateAllChoreArray)];
+                
+            }];
+            
+        }
+
+        
+        
+    }];
     
 }
 

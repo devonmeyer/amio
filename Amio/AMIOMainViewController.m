@@ -85,12 +85,19 @@
         _allChores = [NSMutableArray arrayWithArray:objects];
         
         [self.tableView reloadData ];
-        
+                
     } else {
         NSLog(@"%@", [error debugDescription]);
     }
     
     
+    
+}
+
+- (void) updateAllChoreArray
+{
+    
+    [AMIOTask getTasksForGroup:[self activeGroup] exceptUser:[self activeUser] withTarget:self withSelector:@selector(loadAllChoresArrayFromArray:withError:)];
     
 }
 
@@ -388,16 +395,17 @@
         
         AMIOTask * theTask = [_content objectAtIndex:myIndex];
 
-        [theTask taskCompleted];
+        [theTask taskDismissedByView:self];
         
-        NSArray * toDelete = [NSArray arrayWithObjects:[NSIndexPath indexPathForRow:myIndex inSection:0], nil];
+        NSArray * toDelete = [NSArray arrayWithObject:[NSIndexPath indexPathForRow:myIndex inSection:0]];
         
         NSLog(@"%@", toDelete);
         
+        [_content removeObject:theTask];
+        
         [self.tableView deleteRowsAtIndexPaths:toDelete
                               withRowAnimation:UITableViewRowAnimationFade];
-  
-        [_content removeObject:theTask];
+
 
         
     }
