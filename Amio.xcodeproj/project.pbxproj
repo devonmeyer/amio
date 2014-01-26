@@ -36,6 +36,13 @@
 		FFD1CC4B1893E6C900C8F1E0 /* AMIOUser.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD1CC4A1893E6C900C8F1E0 /* AMIOUser.m */; };
 		FFD1CC4E1893E81B00C8F1E0 /* AMIOGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD1CC4D1893E81B00C8F1E0 /* AMIOGroup.m */; };
 		FFD1CC511893E99D00C8F1E0 /* AMIOTask.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD1CC501893E99D00C8F1E0 /* AMIOTask.m */; };
+		FFD1CC5318949AEC00C8F1E0 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFD1CC5218949AEC00C8F1E0 /* FacebookSDK.framework */; };
+		FFD1CC571894A07B00C8F1E0 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD1CC551894A07B00C8F1E0 /* LoginViewController.m */; };
+		FFD1CC581894A07B00C8F1E0 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFD1CC561894A07B00C8F1E0 /* LoginViewController.xib */; };
+		FFD1CC5D1894A12B00C8F1E0 /* login-button-small-pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = FFD1CC591894A12B00C8F1E0 /* login-button-small-pressed.png */; };
+		FFD1CC5E1894A12B00C8F1E0 /* login-button-small-pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FFD1CC5A1894A12B00C8F1E0 /* login-button-small-pressed@2x.png */; };
+		FFD1CC5F1894A12B00C8F1E0 /* login-button-small.png in Resources */ = {isa = PBXBuildFile; fileRef = FFD1CC5B1894A12B00C8F1E0 /* login-button-small.png */; };
+		FFD1CC601894A12B00C8F1E0 /* login-button-small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FFD1CC5C1894A12B00C8F1E0 /* login-button-small@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +96,14 @@
 		FFD1CC4D1893E81B00C8F1E0 /* AMIOGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMIOGroup.m; sourceTree = "<group>"; };
 		FFD1CC4F1893E99D00C8F1E0 /* AMIOTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMIOTask.h; sourceTree = "<group>"; };
 		FFD1CC501893E99D00C8F1E0 /* AMIOTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMIOTask.m; sourceTree = "<group>"; };
+		FFD1CC5218949AEC00C8F1E0 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
+		FFD1CC541894A07B00C8F1E0 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		FFD1CC551894A07B00C8F1E0 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		FFD1CC561894A07B00C8F1E0 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
+		FFD1CC591894A12B00C8F1E0 /* login-button-small-pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login-button-small-pressed.png"; sourceTree = "<group>"; };
+		FFD1CC5A1894A12B00C8F1E0 /* login-button-small-pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login-button-small-pressed@2x.png"; sourceTree = "<group>"; };
+		FFD1CC5B1894A12B00C8F1E0 /* login-button-small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login-button-small.png"; sourceTree = "<group>"; };
+		FFD1CC5C1894A12B00C8F1E0 /* login-button-small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login-button-small@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +124,7 @@
 				FFD1CC071893AEE300C8F1E0 /* CoreGraphics.framework in Frameworks */,
 				FFD1CC091893AEE300C8F1E0 /* UIKit.framework in Frameworks */,
 				FFD1CC051893AEE300C8F1E0 /* Foundation.framework in Frameworks */,
+				FFD1CC5318949AEC00C8F1E0 /* FacebookSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -128,6 +144,13 @@
 		FFD1CBF81893AEE300C8F1E0 = {
 			isa = PBXGroup;
 			children = (
+				FFD1CC591894A12B00C8F1E0 /* login-button-small-pressed.png */,
+				FFD1CC5A1894A12B00C8F1E0 /* login-button-small-pressed@2x.png */,
+				FFD1CC5B1894A12B00C8F1E0 /* login-button-small.png */,
+				FFD1CC5C1894A12B00C8F1E0 /* login-button-small@2x.png */,
+				FFD1CC541894A07B00C8F1E0 /* LoginViewController.h */,
+				FFD1CC551894A07B00C8F1E0 /* LoginViewController.m */,
+				FFD1CC561894A07B00C8F1E0 /* LoginViewController.xib */,
 				FFD1CC0A1893AEE300C8F1E0 /* Amio */,
 				FFD1CC231893AEE400C8F1E0 /* AmioTests */,
 				FFD1CC031893AEE300C8F1E0 /* Frameworks */,
@@ -147,6 +170,7 @@
 		FFD1CC031893AEE300C8F1E0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FFD1CC5218949AEC00C8F1E0 /* FacebookSDK.framework */,
 				FFD1CC471893DE3D00C8F1E0 /* SystemConfiguration.framework */,
 				FFD1CC451893DE3500C8F1E0 /* StoreKit.framework */,
 				FFD1CC431893DE3100C8F1E0 /* Security.framework */,
@@ -295,8 +319,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FFD1CC5E1894A12B00C8F1E0 /* login-button-small-pressed@2x.png in Resources */,
+				FFD1CC5F1894A12B00C8F1E0 /* login-button-small.png in Resources */,
+				FFD1CC5D1894A12B00C8F1E0 /* login-button-small-pressed.png in Resources */,
 				FFD1CC0F1893AEE300C8F1E0 /* InfoPlist.strings in Resources */,
 				FFD1CC171893AEE300C8F1E0 /* Images.xcassets in Resources */,
+				FFD1CC601894A12B00C8F1E0 /* login-button-small@2x.png in Resources */,
+				FFD1CC581894A07B00C8F1E0 /* LoginViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -319,6 +348,7 @@
 				88B50F481893EA8000A686D1 /* MCSwipeTableViewCell.m in Sources */,
 				88B50F441893D69900A686D1 /* AMIOConstants.m in Sources */,
 				FFD1CC511893E99D00C8F1E0 /* AMIOTask.m in Sources */,
+				FFD1CC571894A07B00C8F1E0 /* LoginViewController.m in Sources */,
 				FFD1CC4B1893E6C900C8F1E0 /* AMIOUser.m in Sources */,
 				FFD1CC111893AEE300C8F1E0 /* main.m in Sources */,
 				88B50F411893CF3600A686D1 /* AMIOMainViewController.m in Sources */,

@@ -7,11 +7,13 @@
 //
 
 #import "AMIOAppDelegate.h"
+#import "LoginViewController.h"
 #import "AMIOMainViewController.h"
 #import "AMIOUser.h"
 #import "AMIOGroup.h"
 #import "AMIOTask.h"
 #import <Parse/Parse.h>
+#import <FacebookSDK/FacebookSDK.h>
 
 
 @implementation AMIOAppDelegate
@@ -36,9 +38,9 @@
     
     // View Controller Setup
 
-    AMIOMainViewController *mainViewController = [[AMIOMainViewController alloc] init];
+    LoginViewController * facebookLogin = [[LoginViewController alloc] init];
     
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:mainViewController];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:facebookLogin];
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Light" size:24.0f],
                                                            NSForegroundColorAttributeName: [UIColor orangeColor]}];
     navController.navigationBar.tintColor = [UIColor orangeColor];
@@ -46,6 +48,19 @@
     [self.window makeKeyAndVisible];
     
     return YES;
+}
+
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation {
+    return [FBAppCall handleOpenUrl:url
+                  sourceApplication:sourceApplication
+                        withSession:[PFFacebookUtils session]];
+}
+
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+    [FBAppCall handleDidBecomeActiveWithSession:[PFFacebookUtils session]];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
@@ -63,11 +78,6 @@
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-}
-
-- (void)applicationDidBecomeActive:(UIApplication *)application
-{
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
