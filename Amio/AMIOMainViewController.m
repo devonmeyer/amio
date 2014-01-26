@@ -314,6 +314,7 @@
                                     @4:@"p5",
                                     @5:@"p6"};
         UIImageView *profileView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[randomPic objectForKey:[NSNumber numberWithInt:r]]]];
+        UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.tableView.frame.size.width - 60 - CELL_PADDING, 0, 60, CELL_HEIGHT)];
         
         if (!cell) {
             cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier2];
@@ -334,7 +335,6 @@
                 UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapLabelWithGesture:)];
                 [alertView addGestureRecognizer:tapGesture];
             } else {
-                UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.tableView.frame.size.width - 60 - CELL_PADDING, 0, 60, CELL_HEIGHT)];
                 NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
                 [dateFormatter setDateFormat:@"MMM dd"];
                 [dateLabel setText:[dateFormatter stringFromDate:[[_allChores objectAtIndex:indexPath.row] dueDate]]];
