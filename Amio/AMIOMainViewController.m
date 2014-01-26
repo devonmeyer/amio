@@ -168,8 +168,7 @@
         
         [self setActiveGroup:objects[0]];
                 
-        [self createSomeTasks];
-        
+        //[self createSomeTasks];
         
         [AMIOTask getTasksForGroup:[self activeGroup] exceptUser:[self activeUser] withTarget:self withSelector:@selector(loadAllChoresArrayFromArray:withError:)];
         
@@ -215,10 +214,6 @@
         [task setStatus:AMIOTaskStatusUpcoming];
         
         [task saveInBackground];
-        
-        
-        
-        
     }
     
 }
@@ -279,7 +274,7 @@
     if (indexPath.section == 0) {
         MCSwipeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier1];
         
-        if (cell==nil) {
+        if (!cell) {
             cell = [[MCSwipeTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier1];
         }
         
@@ -295,7 +290,7 @@
     } else {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier2];
         
-        if (cell==nil) {
+        if (!cell) {
             cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier2];
         }
         
@@ -306,8 +301,15 @@
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        UIView *profileView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CELL_HEIGHT, CELL_HEIGHT)];
-        profileView.backgroundColor = [UIColor greenColor];
+        int r = arc4random() % 6;
+        NSDictionary *randomPic = @{@0:@"p1",
+                                    @1:@"p2",
+                                    @2:@"p3",
+                                    @3:@"p4",
+                                    @4:@"p5",
+                                    @5:@"p6"};
+        
+        UIImageView *profileView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[randomPic objectForKey:[NSNumber numberWithInt:r]]]];
         [cell addSubview:profileView];
         
         UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectMake(CELL_PADDING + CELL_HEIGHT, 0, self.tableView.frame.size.width - 60 - CELL_PADDING*2 - CELL_HEIGHT, CELL_HEIGHT)];
@@ -321,6 +323,10 @@
             UIImageView *alertView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"alert"]];
             alertView.frame = CGRectMake(self.view.frame.size.width - CELL_HEIGHT, 0, CELL_HEIGHT, CELL_HEIGHT);
             [cell addSubview:alertView];
+            
+            alertView.userInteractionEnabled = YES;
+            UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapLabelWithGesture:)];
+            [alertView addGestureRecognizer:tapGesture];
         } else {
             UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.tableView.frame.size.width - 60 - CELL_PADDING, 0, 60, CELL_HEIGHT)];
             NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -332,6 +338,10 @@
         }
         return cell;
     }
+}
+
+- (void)didTapLabelWithGesture:(UITapGestureRecognizer *)tapGesture {
+    NSLog(@"Tapped Alert Icon");
 }
 
 - (void)configureCell:(MCSwipeTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
