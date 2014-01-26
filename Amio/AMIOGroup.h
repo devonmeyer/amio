@@ -18,6 +18,12 @@
 
 + (NSString *) parseClassName;
 
+// Better
+
++(void) getGroupByID:(NSString *)anId withTarget:(id)aTarget withSelector:(SEL)aSelector;
+
+// Not as good
+
 +(void) getGroupByID:(NSString *)anId withBlock:(void (^)(NSArray *objects, NSError *error)) block;
 
 @property (retain) NSString * name;

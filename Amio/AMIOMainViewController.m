@@ -33,8 +33,6 @@
 {
     self = [super initWithStyle:style];
     
-    [self initBlocks];
-    
     if (self) {
         
         // First init with empty arrays
@@ -59,85 +57,98 @@
 
 // Test method for Parse.
 
-- (void) initBlocks
+
+- (void) loadContentArrayFromArray:(NSArray *)objects
+                         withError:(NSError *) error
 {
     
-    loadContentArray = ^(NSArray * objects, NSError * error) {
-    
-        if (!error) {
+    if (!error) {
         NSLog(@"loadContentArray : Loading content with %d objects", [objects count]);
-            _content = [NSMutableArray arrayWithArray:objects];
-            
-            
-            [self.tableView reloadData ];
-            
-        } else {
-            NSLog(@"%@", [error debugDescription]);
-        }
         
-    };
-    
-    loadAllChoresArray = ^(NSArray * objects, NSError * error) {
+        _content = [NSMutableArray arrayWithArray:objects];
         
-        if (!error) {
-            NSLog(@"loadAllChoresArray : Loading content with %d objects", [objects count]);
-            _allChores = [NSMutableArray arrayWithArray:objects];
-            
-            [self.tableView reloadData ];
-            
-        } else {
-            NSLog(@"%@", [error debugDescription]);
-        }
-    };
-    
-    loadUser = ^(NSArray * objects, NSError * error) {
+        [self.tableView reloadData ];
         
-        if (!error) {
-            
-            NSLog(@"loadUser : Loading content with %d objects", [objects count]);
-            
-            [self setActiveUser:objects[0]];
-            
-            [AMIOTask getTasksForUser:[self activeUser] withBlock:loadContentArray];
-            
-            [AMIOGroup getGroupByID:TEST_GROUP withBlock:loadGroup];
-            
-            [self.tableView reloadData ];
-            
-        } else {
-            
-            NSLog(@"%@", [error debugDescription]);
-            
-        }
-    };
-    
-    loadGroup = ^(NSArray * objects, NSError * error) {
-        
-        if (!error) {
-            
-            NSLog(@"loadGroup : Loading content with %d objects", [objects count]);
-            
-            [self setActiveGroup:objects[0]];
-            
-            NSLog(@"%@", activeGroup);
-            
-            //[self createSomeTasks];
-            
-            
-            [AMIOTask getTasksForGroup:[self activeGroup] exceptUser:[self activeUser] withBlock:loadAllChoresArray];
-            
-            [self.tableView reloadData];
-            
-        } else {
-            
-            NSLog(@"%@", [error debugDescription]);
-            
-        }
-    };
-
+    } else {
+        NSLog(@"%@", [error debugDescription]);
+    }
     
 }
 
+
+- (void) loadAllChoresArrayFromArray:(NSArray *)objects
+                           withError:(NSError *) error
+{
+    
+    if (!error) {
+        NSLog(@"loadAllChoresArray : Loading content with %d objects", [objects count]);
+
+        _allChores = [NSMutableArray arrayWithArray:objects];
+        
+        [self.tableView reloadData ];
+        
+    } else {
+        NSLog(@"%@", [error debugDescription]);
+    }
+    
+    
+    
+}
+
+- (void) updateAllChoreArray
+{
+    
+    [AMIOTask getTasksForGroup:[self activeGroup] exceptUser:[self activeUser] withTarget:self withSelector:@selector(loadAllChoresArrayFromArray:withError:)];
+    
+}
+
+- (void) loadActiveUserFromArray:(NSArray *)objects
+                       withError:(NSError *) error
+{
+    
+    if (!error) {
+        
+        NSLog(@"loadUser : Loading content with %d objects", [objects count]);
+        
+        [self setActiveUser:objects[0]];
+        
+        [AMIOTask getTasksForUser:[self activeUser] withTarget:self withSelector:@selector(loadContentArrayFromArray:withError:)];
+        
+        [AMIOGroup getGroupByID:TEST_GROUP withTarget:self withSelector:@selector(loadActiveGroupFromArray:withError:)];
+                
+        [self.tableView reloadData ];
+        
+    } else {
+        
+        NSLog(@"%@", [error debugDescription]);
+        
+    }
+    
+}
+
+- (void) loadActiveGroupFromArray:(NSArray *)objects withError:(NSError *) error
+{
+    
+    if (!error) {
+        
+        NSLog(@"loadGroup : Loading content with %d objects", [objects count]);
+        
+        [self setActiveGroup:objects[0]];
+                
+        //[self createSomeTasks];
+        
+        
+        [AMIOTask getTasksForGroup:[self activeGroup] exceptUser:[self activeUser] withTarget:self withSelector:@selector(loadAllChoresArrayFromArray:withError:)];
+        
+        [self.tableView reloadData];
+        
+    } else {
+        
+        NSLog(@"%@", [error debugDescription]);
+        
+    }
+    
+}
 
 - (void) createSomeTasks
 {
@@ -186,9 +197,9 @@
     if (TESTING) {
                 
         if (IS_USER_ONE) {
-            [AMIOUser getUserByID:TEST_USER_ONE withBlock:loadUser];
+            [AMIOUser getUserByID:TEST_USER_ONE withTarget:self withSelector:@selector(loadActiveUserFromArray:withError:)];
         } else {
-            [AMIOUser getUserByID:TEST_USER_TWO withBlock:loadUser];
+            [AMIOUser getUserByID:TEST_USER_TWO withTarget:self withSelector:@selector(loadActiveUserFromArray:withError:)];
         }
         
         
@@ -271,7 +282,13 @@
         [cell addSubview:textLabel];
         
         UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.tableView.frame.size.width - 60 - CELL_PADDING, 0, 60, CELL_HEIGHT)];
-        [dateLabel setText:@"Jan 23"];
+        
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"MMM dd"];
+        
+        
+        
+        [dateLabel setText:[dateFormatter stringFromDate:[[_allChores objectAtIndex:indexPath.row] dueDate]]];
         [dateLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Thin" size:16.0f]];
         dateLabel.textAlignment = NSTextAlignmentRight;
         [cell addSubview:dateLabel];
@@ -292,13 +309,19 @@
     [cell.textLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Thin" size:16.0f]];
 
     UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.tableView.frame.size.width - 60 - CELL_PADDING, 0, 60, CELL_HEIGHT)];
-    [dateLabel setText:@"Jan 23"];
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"MMM dd"];
+    
+    
+    [dateLabel setText:[dateFormatter stringFromDate:[[_content objectAtIndex:indexPath.row] dueDate]]];
+    
+    
     [dateLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Thin" size:16.0f]];
     dateLabel.textAlignment = NSTextAlignmentRight;
     [cell addSubview:dateLabel];
     
     [cell setSwipeGestureWithView:checkView color:greenColor mode:MCSwipeTableViewCellModeExit state:MCSwipeTableViewCellState1 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
-        NSLog(@"Did swipe \"Cross\" cell");
         
         _cellToDelete = cell;
         
@@ -323,10 +346,21 @@
     UILabel *settings = [[UILabel alloc] initWithFrame:CGRectMake(tableView.frame.size.width - CELL_HEIGHT + 4, 4, CELL_HEIGHT-8, CELL_HEIGHT-8)];
 
     if (section == 0) {
-        [label setText:@"Devon"];
+        
+        if ([self activeUser]){
+            [label setText:[[self activeUser] name]];
+        } else {
+            [label setText:@""];
+        }
+        
         settings.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"iconSettingsSelf"]];
     } else {
-        [label setText:@"Our Apartment"];
+        if ([self activeGroup]){
+            [label setText:[[self activeGroup] name]];
+        } else {
+            [label setText:@""];
+        }
+        
         settings.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"iconSettingsGroup"]];
     }
     
@@ -354,7 +388,6 @@
 }
 
 - (void)addChore {
-    NSLog(@"Pressed: Add chore");
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc]
                                    initWithTitle: @""
                                    style: UIBarButtonItemStyleDone
@@ -383,16 +416,16 @@
         
         AMIOTask * theTask = [_content objectAtIndex:myIndex];
 
-        [theTask taskCompleted];
+        [theTask taskDismissedByView:self];
         
-        NSArray * toDelete = [NSArray arrayWithObjects:[NSIndexPath indexPathForRow:myIndex inSection:0], nil];
+        NSArray * toDelete = [NSArray arrayWithObject:[NSIndexPath indexPathForRow:myIndex inSection:0]];
         
-        NSLog(@"%@", toDelete);
+        
+        [_content removeObject:theTask];
         
         [self.tableView deleteRowsAtIndexPaths:toDelete
                               withRowAnimation:UITableViewRowAnimationFade];
-  
-        [_content removeObject:theTask];
+
 
         
     }

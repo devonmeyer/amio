@@ -13,6 +13,12 @@
 
 +(NSString *) parseClassName;
 
+// Better
+
++(void) getUserByID:(NSString *)anId withTarget:(id)aTarget withSelector:(SEL)aSelector;
+
+// Not as good
+
 +(void) getUserByID:(NSString *)anId withBlock:(void (^)(NSArray *objects, NSError *error)) block;
 
 +(NSArray *) getUserByID:(NSString *)anId;
