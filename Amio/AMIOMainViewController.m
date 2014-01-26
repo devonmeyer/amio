@@ -53,6 +53,39 @@
     self.title = @"amio";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addChore)];
     [[UIBarButtonItem appearance] setTintColor:[UIColor orangeColor]];
+    self.navigationItem.hidesBackButton = YES;
+    
+    // Create request for user's Facebook data
+    FBRequest *request = [FBRequest requestForMe];
+    
+    // Send request to Facebook
+    [request startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+        if (!error) {
+            // result is a dictionary with the user's Facebook data
+            NSDictionary *userData = (NSDictionary *)result;
+            
+            NSString *facebookID = userData[@"id"];
+            NSString *name = userData[@"name"];
+            NSString *location = userData[@"location"][@"name"];
+            NSString *gender = userData[@"gender"];
+            NSString *birthday = userData[@"birthday"];
+            NSString *relationship = userData[@"relationship_status"];
+            
+            // Download the user's facebook profile picture
+            //_imageData = [[NSMutableData alloc] init]; // the data will be loaded in here
+            
+            // URL should point to https://graph.facebook.com/{facebookId}/picture?type=large&return_ssl_resources=1
+            NSURL *pictureURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large&return_ssl_resources=1", facebookID]];
+            
+            NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:pictureURL
+                                                                      cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                                  timeoutInterval:2.0f];
+            // Run network request asynchronously
+            NSURLConnection *urlConnection = [[NSURLConnection alloc] initWithRequest:urlRequest delegate:self];
+        }
+    }];
+    
+    
 }
 
 // Test method for Parse.
@@ -151,7 +184,7 @@
         
         [self setActiveGroup:objects[0]];
                 
-        //[self createSomeTasks];
+        [self createSomeTasks];
         
         
         [AMIOTask getTasksForGroup:[self activeGroup] exceptUser:[self activeUser] withTarget:self withSelector:@selector(loadAllChoresArrayFromArray:withError:)];
@@ -192,7 +225,8 @@
         
         [task setDueDate:[NSDate dateWithTimeIntervalSinceNow:(arc4random() % 604800)]];
         
-        [task setFrequency:1];
+        //[task setFrequency:1];
+        [task setType:AMIOTaskTypeAnytime];
         [task setFrequencyUnit:AMIOTaskFrequencyWeek];
         [task setStatus:AMIOTaskStatusUpcoming];
         
@@ -297,25 +331,28 @@
         [textLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Thin" size:16.0f]];
         [cell addSubview:textLabel];
         
-        UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.tableView.frame.size.width - 60 - CELL_PADDING, 0, 60, CELL_HEIGHT)];
+        AMIOTask *task = [_allChores objectAtIndex:indexPath.row];
         
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"MMM dd"];
-        
-        
-        
-        [dateLabel setText:[dateFormatter stringFromDate:[[_allChores objectAtIndex:indexPath.row] dueDate]]];
-        [dateLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Thin" size:16.0f]];
-        dateLabel.textAlignment = NSTextAlignmentRight;
-        [cell addSubview:dateLabel];
-        
+        if (task.type == AMIOTaskTypeAnytime) {
+            UIImageView *alertView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"alert"]];
+            alertView.frame = CGRectMake(self.view.frame.size.width - CELL_HEIGHT, 0, CELL_HEIGHT, CELL_HEIGHT);
+            [cell addSubview:alertView];
+        } else {
+            UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.tableView.frame.size.width - 60 - CELL_PADDING, 0, 60, CELL_HEIGHT)];
+            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+            [dateFormatter setDateFormat:@"MMM dd"];
+            [dateLabel setText:[dateFormatter stringFromDate:[[_allChores objectAtIndex:indexPath.row] dueDate]]];
+            [dateLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Thin" size:16.0f]];
+            dateLabel.textAlignment = NSTextAlignmentRight;
+            [cell addSubview:dateLabel];
+        }
         return cell;
     }
 }
 
 - (void)configureCell:(MCSwipeTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     UIView *checkView = [self viewWithImageName:@"check"];
-    UIColor *greenColor = [UIColor colorWithRed:85.0 / 255.0 green:213.0 / 255.0 blue:80.0 / 255.0 alpha:1.0];
+    UIColor *greenColor = [UIColor orangeColor];
 
     // Setting the default inactive state color to the tableView background color
     [cell setDefaultColor:[UIColor colorWithRed:227.0 / 255.0 green:227.0 / 255.0 blue:227.0 / 255.0 alpha:1.0]];

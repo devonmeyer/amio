@@ -16,7 +16,7 @@
     
     // Check if user is cached and linked to Facebook, if so, bypass login    
     if ([PFUser currentUser] && [PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]) {
-        [self.navigationController pushViewController:[[AMIOMainViewController alloc] initWithStyle:UITableViewStyleGrouped] animated:NO];
+        [self.navigationController pushViewController:[[AMIOMainViewController alloc] initWithStyle:UITableViewStylePlain] animated:NO];
     }
 }
 
@@ -27,6 +27,8 @@
 - (IBAction)loginButtonTouchHandler:(id)sender  {
     // Set permissions required from the facebook user account
     NSArray *permissionsArray = @[ @"user_about_me", @"user_relationships", @"user_birthday", @"user_location"];
+    
+    [PFFacebookUtils initializeFacebook];
     
     // Login PFUser using facebook
     [PFFacebookUtils logInWithPermissions:permissionsArray block:^(PFUser *user, NSError *error) {
@@ -44,10 +46,10 @@
             }
         } else if (user.isNew) {
             NSLog(@"User with facebook signed up and logged in!");
-            [self.navigationController pushViewController:[[AMIOMainViewController alloc] initWithStyle:UITableViewStyleGrouped] animated:YES];
+            [self.navigationController pushViewController:[[AMIOMainViewController alloc] initWithStyle:UITableViewStylePlain] animated:YES];
         } else {
             NSLog(@"User with facebook logged in!");
-            [self.navigationController pushViewController:[[AMIOMainViewController alloc] initWithStyle:UITableViewStyleGrouped] animated:YES];
+            [self.navigationController pushViewController:[[AMIOMainViewController alloc] initWithStyle:UITableViewStylePlain] animated:YES];
         }
     }];
     
