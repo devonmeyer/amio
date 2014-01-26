@@ -319,10 +319,11 @@
             
             [cell setBackgroundColor:[UIColor colorWithRed:255.0 / 255.0 green:210.0 / 255.0 blue:210.0 / 255.0 alpha:1.0]];
             
+        } else {
+            cell.backgroundColor = [UIColor clearColor];
         }
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.backgroundColor = [UIColor clearColor];
         [self configureCell:cell forRowAtIndexPath:indexPath];
         return cell;
     } else {
