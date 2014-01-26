@@ -126,37 +126,43 @@
         // Once
         
         [newTask setType:AMIOTaskTypeOnce];
+        [newTask setDueDate:[NSDate dateWithTimeIntervalSinceNow:604800]];
         
         
     } else if (_segmentedControl.selectedSegmentIndex == 1) {
         
         // Repeating
         
-        [newTask setType:AMIOTaskTypeRecurring];
+        NSLog(@"Frequency : %d, Unit : %d", activeFrequencyPickerIndex, activeUnitPickerIndex);
         
-        if ([self activeFrequencyPickerIndex] == 0) {
+        [newTask setType:AMIOTaskTypeRecurring];
+        [newTask setFrequency:([self activeFrequencyPickerIndex] + 1)];
+        
+        if ([self activeUnitPickerIndex] == 0) {
             // Days
             [newTask setFrequencyUnit:AMIOTaskFrequencyDay];
-        } else if ([self activeFrequencyPickerIndex] == 1) {
+            [newTask setDueDate:[NSDate dateWithTimeIntervalSinceNow:([newTask frequency] * 86400)]];
+        } else if ([self activeUnitPickerIndex] == 1) {
             // Weeks
             [newTask setFrequencyUnit:AMIOTaskFrequencyWeek];
-        } else if ([self activeFrequencyPickerIndex] == 2) {
+            [newTask setDueDate:[NSDate dateWithTimeIntervalSinceNow:([newTask frequency] * 604800)]];
+        } else if ([self activeUnitPickerIndex] == 2) {
             // Months
             [newTask setFrequencyUnit:AMIOTaskFrequencyMonth];
+            [newTask setDueDate:[NSDate dateWithTimeIntervalSinceNow:([newTask frequency] * 18144000)]];
         }
         
-        [newTask setFrequency:([self activeFrequencyPickerIndex] + 1)];
         
         
         
     } else {
                 
         [newTask setType:AMIOTaskTypeAnytime];
+        [newTask setDueDate:[NSDate dateWithTimeIntervalSinceNow:62899200]];
+
 
         
     }
-    
-    [newTask setDueDate:[NSDate dateWithTimeIntervalSinceNow:604800]];
     
     [newTask saveInBackgroundWithTarget:[self mainView] selector:(@selector(updateBothArrays))];
     

@@ -100,6 +100,12 @@
         
         _content = [NSMutableArray arrayWithArray:objects];
         
+        NSSortDescriptor *sortDescriptor;
+        sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"dueDate"
+                                                     ascending:YES];
+        NSMutableArray *sortDescriptors = [NSMutableArray arrayWithObject:sortDescriptor];
+        _content = [NSMutableArray arrayWithArray:[_content sortedArrayUsingDescriptors:sortDescriptors]];
+        
         [self.tableView reloadData ];
         
     } else {
@@ -117,6 +123,12 @@
         NSLog(@"loadAllChoresArray : Loading content with %d objects", [objects count]);
 
         _allChores = [NSMutableArray arrayWithArray:objects];
+        
+        NSSortDescriptor *sortDescriptor;
+        sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"dueDate"
+                                                     ascending:YES];
+        NSMutableArray *sortDescriptors = [NSMutableArray arrayWithObject:sortDescriptor];
+        _allChores = [NSMutableArray arrayWithArray:[_allChores sortedArrayUsingDescriptors:sortDescriptors]];
         
         [self.tableView reloadData ];
         
@@ -292,6 +304,7 @@
     static NSString *CellIdentifier1 = @"Cell1";
     static NSString *CellIdentifier2 = @"Cell2";
     
+    
     if (indexPath.section == 0) {
         MCSwipeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier1];
         
@@ -302,6 +315,12 @@
         // iOS 7 separator
         if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
             cell.separatorInset = UIEdgeInsetsZero;
+        }
+        
+        if ([[[_content objectAtIndex:indexPath.row] dueDate] timeIntervalSinceNow] < 0.0 ){
+            
+            [cell setBackgroundColor:[UIColor colorWithRed:255.0 / 255.0 green:210.0 / 255.0 blue:210.0 / 255.0 alpha:1.0]];
+            
         }
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -333,6 +352,12 @@
         
         AMIOTask *task = [_allChores objectAtIndex:indexPath.row];
         
+        if ([[task dueDate] timeIntervalSinceNow] < 0.0 ){
+            
+            [cell setBackgroundColor:[UIColor colorWithRed:255.0 / 255.0 green:210.0 / 255.0 blue:210.0 / 255.0 alpha:1.0]];
+            
+        }
+        
         if (task.type == AMIOTaskTypeAnytime) {
             UIImageView *alertView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"alert"]];
             alertView.frame = CGRectMake(self.view.frame.size.width - CELL_HEIGHT, 0, CELL_HEIGHT, CELL_HEIGHT);
@@ -355,7 +380,6 @@
     UIColor *greenColor = [UIColor orangeColor];
 
     // Setting the default inactive state color to the tableView background color
-    [cell setDefaultColor:[UIColor colorWithRed:227.0 / 255.0 green:227.0 / 255.0 blue:227.0 / 255.0 alpha:1.0]];
     
     [cell setDelegate:self];
     [cell.textLabel setText:[[_content objectAtIndex:indexPath.row] name]];
@@ -366,8 +390,17 @@
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"MMM dd"];
     
+    AMIOTask * task = [_content objectAtIndex:indexPath.row];
     
-    [dateLabel setText:[dateFormatter stringFromDate:[[_content objectAtIndex:indexPath.row] dueDate]]];
+    if ([task type] == AMIOTaskTypeAnytime) {
+        
+        [dateLabel setText:@"Not Yet"];
+        
+    } else {
+        
+        [dateLabel setText:[dateFormatter stringFromDate:[[_content objectAtIndex:indexPath.row] dueDate]]];
+    }
+    
     
     
     [dateLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Thin" size:16.0f]];
