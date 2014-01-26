@@ -184,7 +184,7 @@
         
         [self setActiveGroup:objects[0]];
                 
-        [self createSomeTasks];
+        //[self createSomeTasks];
         
         
         [AMIOTask getTasksForGroup:[self activeGroup] exceptUser:[self activeUser] withTarget:self withSelector:@selector(loadAllChoresArrayFromArray:withError:)];
