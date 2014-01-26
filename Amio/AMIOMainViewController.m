@@ -328,9 +328,43 @@
         return cell;
     } else {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier2];
+        UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectMake(CELL_PADDING + CELL_HEIGHT, 0, self.tableView.frame.size.width - 60 - CELL_PADDING*2 - CELL_HEIGHT, CELL_HEIGHT)];
+        int r = arc4random() % 6;
+        NSDictionary *randomPic = @{@0:@"p1",
+                                    @1:@"p2",
+                                    @2:@"p3",
+                                    @3:@"p4",
+                                    @4:@"p5",
+                                    @5:@"p6"};
+        UIImageView *profileView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[randomPic objectForKey:[NSNumber numberWithInt:r]]]];
+        UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.tableView.frame.size.width - 60 - CELL_PADDING, 0, 60, CELL_HEIGHT)];
         
         if (!cell) {
             cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier2];
+            [cell addSubview:profileView];
+            
+            [textLabel setText:[[_allChores objectAtIndex:indexPath.row] name]];
+            [textLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Thin" size:16.0f]];
+            [cell addSubview:textLabel];
+            
+            AMIOTask *task = [_allChores objectAtIndex:indexPath.row];
+            
+            if (task.type == AMIOTaskTypeAnytime) {
+                UIImageView *alertView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"alert"]];
+                alertView.frame = CGRectMake(self.view.frame.size.width - CELL_HEIGHT, 0, CELL_HEIGHT, CELL_HEIGHT);
+                [cell addSubview:alertView];
+                
+                alertView.userInteractionEnabled = YES;
+                UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapLabelWithGesture:)];
+                [alertView addGestureRecognizer:tapGesture];
+            } else {
+                NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                [dateFormatter setDateFormat:@"MMM dd"];
+                [dateLabel setText:[dateFormatter stringFromDate:[[_allChores objectAtIndex:indexPath.row] dueDate]]];
+                [dateLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Thin" size:16.0f]];
+                dateLabel.textAlignment = NSTextAlignmentRight;
+                [cell addSubview:dateLabel];
+            }
         }
         
         // iOS 7 separator
@@ -381,6 +415,7 @@
             dateLabel.textAlignment = NSTextAlignmentRight;
             [cell addSubview:dateLabel];
         }
+
         return cell;
     }
 }
