@@ -374,24 +374,7 @@
         cell.backgroundColor = [UIColor clearColor];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        int r = arc4random() % 6;
-        NSDictionary *randomPic = @{@0:@"p1",
-                                    @1:@"p2",
-                                    @2:@"p3",
-                                    @3:@"p4",
-                                    @4:@"p5",
-                                    @5:@"p6"};
-        
-        UIImageView *profileView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[randomPic objectForKey:[NSNumber numberWithInt:r]]]];
-        [cell addSubview:profileView];
-        
-        UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectMake(CELL_PADDING + CELL_HEIGHT, 0, self.tableView.frame.size.width - 60 - CELL_PADDING*2 - CELL_HEIGHT, CELL_HEIGHT)];
-        [textLabel setText:[[_allChores objectAtIndex:indexPath.row] name]];
-        [textLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Thin" size:16.0f]];
-        [cell addSubview:textLabel];
-        
         AMIOTask *task = [_allChores objectAtIndex:indexPath.row];
-        
         if ([[task dueDate] timeIntervalSinceNow] < 0.0 ){
             
             [cell setBackgroundColor:[UIColor colorWithRed:255.0 / 255.0 green:210.0 / 255.0 blue:210.0 / 255.0 alpha:1.0]];
