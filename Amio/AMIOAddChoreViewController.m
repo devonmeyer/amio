@@ -7,7 +7,9 @@
 //
 
 #import "AMIOAddChoreViewController.h"
+#import "AMIOMainViewController.h"
 #import "AMIOConstants.h"
+#import "AMIOTask.h"
 
 @interface AMIOAddChoreViewController () <UITextFieldDelegate, UIPickerViewDelegate>
 
@@ -21,6 +23,8 @@
 
 
 @implementation AMIOAddChoreViewController
+
+@synthesize mainView, nameField, activeFrequencyPickerIndex, activeUnitPickerIndex;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -39,6 +43,7 @@
     textField.placeholder = @"Task name";
     textField.font = [UIFont fontWithName:@"HelveticaNeue-Thin" size:16.0f];
     textField.backgroundColor = [UIColor clearColor];
+    [self setNameField:textField];
     [self.view addSubview:textField];
     
     NSArray *itemArray = [NSArray arrayWithObjects: @"once", @"repeating", @"alert", nil];
@@ -97,6 +102,64 @@
 
 - (void)didTapLabelWithGesture:(UITapGestureRecognizer *)tapGesture {
     NSLog(@"Tapped Done");
+    
+    AMIOTask * newTask = [AMIOTask object];
+    
+    [newTask setName:[[self nameField] text]];
+    
+    // Name
+    
+    // Assignee
+    // TODO make this rotational
+    [newTask setAssignee:[[self mainView] activeUser]];
+    
+    
+    
+    // Group
+    
+    [newTask setGroup:[[self mainView] activeGroup]];
+    
+    // Type
+    
+    if (_segmentedControl.selectedSegmentIndex == 0) {
+        
+        // Once
+        
+        [newTask setType:AMIOTaskTypeOnce];
+        
+        
+    } else if (_segmentedControl.selectedSegmentIndex == 1) {
+        
+        // Repeating
+        
+        [newTask setType:AMIOTaskTypeRecurring];
+        
+        if ([self activeFrequencyPickerIndex] == 0) {
+            // Days
+            [newTask setFrequencyUnit:AMIOTaskFrequencyDay];
+        } else if ([self activeFrequencyPickerIndex] == 1) {
+            // Weeks
+            [newTask setFrequencyUnit:AMIOTaskFrequencyWeek];
+        } else if ([self activeFrequencyPickerIndex] == 2) {
+            // Months
+            [newTask setFrequencyUnit:AMIOTaskFrequencyMonth];
+        }
+        
+        [newTask setFrequency:([self activeFrequencyPickerIndex] + 1)];
+        
+        
+        
+    } else {
+                
+        [newTask setType:AMIOTaskTypeAnytime];
+
+        
+    }
+    
+    [newTask setDueDate:[NSDate dateWithTimeIntervalSinceNow:604800]];
+    
+    [newTask saveInBackgroundWithTarget:[self mainView] selector:(@selector(updateBothArrays))];
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -140,6 +203,12 @@
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow: (NSInteger)row inComponent:(NSInteger)component {
     [pickerView endEditing:YES];
+    
+    if (component == 0) {
+        [self setActiveFrequencyPickerIndex:row];
+    } else {
+        [self setActiveUnitPickerIndex:row];
+    }
 }
 
 // tell the picker how many rows are available for a given component
@@ -164,7 +233,6 @@
     NSDictionary *titlesRight = @{ @0: @"day(s)",
                                    @1: @"week(s)",
                                    @2: @"month(s)",
-                                   @3: @"year(s)"
                                    };
     
     

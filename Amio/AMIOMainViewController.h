@@ -32,5 +32,9 @@
 
 - (void) updateAllChoreArray;
 
+- (void) updateContentArray;
+
+- (void) updateBothArrays;
+
 
 @end

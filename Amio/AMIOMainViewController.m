@@ -95,10 +95,26 @@
     
 }
 
+- (void) updateBothArrays
+{
+    
+    [self updateAllChoreArray];
+    [self updateContentArray];
+    
+}
+
+
 - (void) updateAllChoreArray
 {
     
     [AMIOTask getTasksForGroup:[self activeGroup] exceptUser:[self activeUser] withTarget:self withSelector:@selector(loadAllChoresArrayFromArray:withError:)];
+    
+}
+
+- (void) updateContentArray
+{
+    
+    [AMIOTask getTasksForUser:[self activeUser] withTarget:self withSelector:@selector(loadContentArrayFromArray:withError:)];
     
 }
 
@@ -396,6 +412,9 @@
     [self.navigationItem setBackBarButtonItem: backButton];
     
     AMIOAddChoreViewController *choreViewController = [[AMIOAddChoreViewController alloc] init];
+    
+    [choreViewController setMainView:self];
+    
     [self.navigationController pushViewController:choreViewController animated:YES];
 }
 
