@@ -50,6 +50,7 @@
     return YES;
 }
 
+/*
 - (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url
   sourceApplication:(NSString *)sourceApplication
@@ -57,7 +58,7 @@
     return [FBAppCall handleOpenUrl:url
                   sourceApplication:sourceApplication
                         withSession:[PFFacebookUtils session]];
-}
+}*/
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     [FBAppCall handleDidBecomeActiveWithSession:[PFFacebookUtils session]];
